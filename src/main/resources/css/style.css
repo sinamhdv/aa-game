@@ -1,3 +1,7 @@
 .menu-label {
 	-fx-font-size: 20px;
 }
+
+.error-text {
+	-fx-text-fill: red;
+}
