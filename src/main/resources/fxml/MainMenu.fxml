@@ -16,8 +16,12 @@
 	<center>
 		<VBox alignment="CENTER" spacing="20">
 			<Label text="Main Menu" styleClass="menu-label"/>
-			<!-- <Button text="signup" onMouseClicked="#signupButtonClicked"/> -->
-			<!-- <Button text="back" onMouseClicked="#backButtonClicked"/> -->
+			<Button text="New Game" minWidth="200" onMouseClicked="#newGameButtonClicked"/>
+			<Button text="Continue" minWidth="200" onMouseClicked="#continueButtonClicked"/>
+			<Button text="Profile" minWidth="200" onMouseClicked="#profileButtonClicked"/>
+			<Button text="Scoreboard" minWidth="200" onMouseClicked="#scoreboardButtonClicked"/>
+			<Button text="Options" minWidth="200" onMouseClicked="#optionsButtonClicked"/>
+			<Button text="Exit" minWidth="200" onMouseClicked="#exitButtonClicked"/>
 		</VBox>
 	</center>
 
