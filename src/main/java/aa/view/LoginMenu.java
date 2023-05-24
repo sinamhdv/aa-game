@@ -1,7 +1,7 @@
 package aa.view;
 
 import aa.controller.LoginMenuController;
-import aa.controller.messages.LoginMenuMessage;
+import aa.controller.messages.AccountManagementMessage;
 import aa.utils.DatabaseManager;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -25,11 +25,11 @@ public class LoginMenu extends Application {
 	private static Stage stage;
 
 	public void submitButtonClicked(MouseEvent mouseEvent) throws Exception {
-		LoginMenuMessage message = LoginMenuController.login(
+		AccountManagementMessage message = LoginMenuController.login(
 			usernameTextField.getText(),
 			passwordField.getText()
 		);
-		if (message != LoginMenuMessage.SUCCESS) {
+		if (message != AccountManagementMessage.SUCCESS) {
 			errorText.setText(message.getErrorString());
 			return;
 		}

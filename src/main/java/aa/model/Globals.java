@@ -2,6 +2,8 @@ package aa.model;
 
 import java.util.ArrayList;
 
+import aa.utils.DatabaseManager;
+
 public class Globals {
 	private static ArrayList<User> allUsers;
 	private static User currentUser;
@@ -20,6 +22,11 @@ public class Globals {
 	}
 	public static void addUser(User user) {
 		allUsers.add(user);
+		DatabaseManager.saveUsers();
+	}
+	public static void removeUser(User user) {
+		allUsers.remove(user);
+		DatabaseManager.saveUsers();
 	}
 
 	public static User getCurrentUser() {

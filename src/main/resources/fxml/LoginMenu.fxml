@@ -23,7 +23,7 @@
 				<Button text="submit" onMouseClicked="#submitButtonClicked"/>
 				<Button text="guest" onMouseClicked="#guestButtonClicked"/>
 			</HBox>
-			<Button text="already have an account?" onMouseClicked="#gotoSignupMenuClicked" styleClass="signup-menu-button"/>
+			<Button text="create a new account" onMouseClicked="#gotoSignupMenuClicked" styleClass="signup-menu-button"/>
 		</VBox>
 	</center>
 

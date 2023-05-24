@@ -1,12 +1,23 @@
 package aa.controller;
 
-import aa.controller.messages.SignupMenuMessage;
+import java.util.Random;
+
+import aa.controller.messages.AccountManagementMessage;
 import aa.model.Globals;
 import aa.model.User;
 import aa.utils.FormatValidation;
 
 public class SignupMenuController {
+	public static final String[] avatarImagesPath = new String[6];
 	private static String avatarFilePath;
+
+	static {
+		for (int i = 0; i < 4; i++)
+			avatarImagesPath[i] = SignupMenuController.class.getResource("/images/avatars/" + i + ".jpg").toExternalForm();
+		for (int i = 4; i < 6; i++)
+			avatarImagesPath[i] = SignupMenuController.class.getResource("/images/avatars/" + i + ".png").toExternalForm();
+	}
+
 	public static String getAvatarFilePath() {
 		return avatarFilePath;
 	}
@@ -14,17 +25,25 @@ public class SignupMenuController {
 		SignupMenuController.avatarFilePath = avatarFilePath;
 	}
 
-	public static SignupMenuMessage signup(String username, String password) {
+	public static AccountManagementMessage signup(String username, String password) {
 		if (username.length() == 0 || password.length() == 0)
-			return SignupMenuMessage.EMPTY_FIELD;
+			return AccountManagementMessage.EMPTY_FIELD;
 		if (Globals.getUserByName(username) != null)
-			return SignupMenuMessage.USER_ALREADY_EXISTS;
+			return AccountManagementMessage.USER_ALREADY_EXISTS;
 		if (!FormatValidation.checkUsernameFormat(username))
-			return SignupMenuMessage.INVALID_USERNAME_FORMAT;
+			return AccountManagementMessage.INVALID_USERNAME_FORMAT;
 		if (avatarFilePath == null)
-			return SignupMenuMessage.NO_AVATAR;
+			return AccountManagementMessage.NO_AVATAR;
 		System.out.println(avatarFilePath);
 		new User(username, password, avatarFilePath);
-		return SignupMenuMessage.SUCCESS;
+		return AccountManagementMessage.SUCCESS;
+	}
+
+	public static void pickDefaultAvatar(int index) {
+		SignupMenuController.setAvatarFilePath(avatarImagesPath[index]);
+	}
+
+	public static void pickRandomAvatar() {
+		pickDefaultAvatar(new Random().nextInt(4));
 	}
 }

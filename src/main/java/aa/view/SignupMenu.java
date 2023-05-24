@@ -1,10 +1,9 @@
 package aa.view;
 
 import java.io.File;
-import java.util.Random;
 
 import aa.controller.SignupMenuController;
-import aa.controller.messages.SignupMenuMessage;
+import aa.controller.messages.AccountManagementMessage;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,18 +30,18 @@ public class SignupMenu extends Application {
 	private Label errorText;
 	@FXML
 	private HBox avatarsBox;
-	private String[] avatarImagesPath = new String[6];
+	
 	private RadioButton[] avatarRadioButtons = new RadioButton[6];
 
 	public void signupButtonClicked(MouseEvent mouseEvent) throws Exception {
 		if (avatarRadioButtons[4].isSelected())
-			pickRandomAvatar();
-		SignupMenuMessage message = SignupMenuController.signup(
+			SignupMenuController.pickRandomAvatar();
+		AccountManagementMessage message = SignupMenuController.signup(
 			usernameTextField.getText(),
 			passwordField.getText()
 		);
 		errorText.setText(message.getErrorString());
-		if (message != SignupMenuMessage.SUCCESS) {
+		if (message != AccountManagementMessage.SUCCESS) {
 			errorText.setTextFill(Color.RED);
 			return;
 		}
@@ -53,7 +52,7 @@ public class SignupMenu extends Application {
 		new LoginMenu().start(LoginMenu.getStage());
 	}
 
-	public void chooseAvatarFile(MouseEvent mouseEvent) {
+	public static void chooseAvatarFile(MouseEvent mouseEvent) {
 		FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(LoginMenu.getStage());
 		if (file != null)
@@ -62,29 +61,20 @@ public class SignupMenu extends Application {
 			SignupMenuController.setAvatarFilePath(null);
 	}
 
-	public void pickDefaultAvatar(int index) {
-		SignupMenuController.setAvatarFilePath(avatarImagesPath[index]);
-	}
-
-	public void pickRandomAvatar() {
-		pickDefaultAvatar(new Random().nextInt(4));
-	}
-
 	@FXML
 	private void initialize() {
-		SignupMenuController.setAvatarFilePath(null);
+		handleAvatarSelection(avatarRadioButtons, avatarsBox);
+	}
 
-		for (int i = 0; i < 4; i++)
-			avatarImagesPath[i] = SignupMenu.class.getResource("/images/avatars/" + i + ".jpg").toExternalForm();
-		for (int i = 4; i < 6; i++)
-			avatarImagesPath[i] = SignupMenu.class.getResource("/images/avatars/" + i + ".png").toExternalForm();
+	public static void handleAvatarSelection(RadioButton[] avatarRadioButtons, HBox avatarsBox) {
+		SignupMenuController.setAvatarFilePath(null);
 
 		ToggleGroup toggleGroup = new ToggleGroup();
 		for (int i = 0; i < avatarRadioButtons.length; i++) {
 			RadioButton radio = new RadioButton();
 			radio.setToggleGroup(toggleGroup);
 			ImageView image;
-			image = new ImageView(avatarImagesPath[i]);
+			image = new ImageView(SignupMenuController.avatarImagesPath[i]);
 			image.setFitHeight(50);
 			image.setFitWidth(50);
 			radio.setGraphic(image);
@@ -93,10 +83,10 @@ public class SignupMenu extends Application {
 		}
 		for (int i = 0; i < 4; i++) {
 			int index = i;
-			avatarRadioButtons[i].setOnMouseClicked(event -> { pickDefaultAvatar(index); });
+			avatarRadioButtons[i].setOnMouseClicked(event -> { SignupMenuController.pickDefaultAvatar(index); });
 		}
 		avatarRadioButtons[4].setSelected(true);
-		avatarRadioButtons[5].setOnMouseClicked(this::chooseAvatarFile);
+		avatarRadioButtons[5].setOnMouseClicked(SignupMenu::chooseAvatarFile);
 	}
 
 	@Override

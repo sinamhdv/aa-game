@@ -1,16 +1,16 @@
 package aa.controller;
 
-import aa.controller.messages.LoginMenuMessage;
+import aa.controller.messages.AccountManagementMessage;
 import aa.model.Globals;
 import aa.model.User;
 
 public class LoginMenuController {
-	public static LoginMenuMessage login(String username, String password) {
+	public static AccountManagementMessage login(String username, String password) {
 		User user = Globals.getUserByName(username);
 		if (user == null || !user.checkPassword(password))
-			return LoginMenuMessage.INVALID_CREDENTIALS;
+			return AccountManagementMessage.INVALID_CREDENTIALS;
 		Globals.setCurrentUser(user);
-		return LoginMenuMessage.SUCCESS;
+		return AccountManagementMessage.SUCCESS;
 	}
 
 	public static void setGuestMode() {

@@ -1,2 +1,1 @@
-- [ ] avatar selection / random avatar
 - [ ] guest mode

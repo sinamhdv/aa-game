@@ -14,7 +14,6 @@ public class User {
 		this.password = password;
 		this.avatarURL = avatarURL;
 		Globals.addUser(this);
-		DatabaseManager.saveUsers();
 	}
 
 	public boolean checkPassword(String password) {

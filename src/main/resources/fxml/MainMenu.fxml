@@ -22,6 +22,7 @@
 			<Button text="Scoreboard" minWidth="200" onMouseClicked="#scoreboardButtonClicked"/>
 			<Button text="Options" minWidth="200" onMouseClicked="#optionsButtonClicked"/>
 			<Button text="Exit" minWidth="200" onMouseClicked="#exitButtonClicked"/>
+			<Label text="" styleClass="error-text" fx:id="errorText"/>
 		</VBox>
 	</center>
 
