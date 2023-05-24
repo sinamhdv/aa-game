@@ -9,7 +9,11 @@ public class LoginMenuController {
 		User user = Globals.getUserByName(username);
 		if (user == null || !user.checkPassword(password))
 			return LoginMenuMessage.INVALID_CREDENTIALS;
-		// TODO: set user as currentUser
+		Globals.setCurrentUser(user);
 		return LoginMenuMessage.SUCCESS;
+	}
+
+	public static void setGuestMode() {
+		Globals.setCurrentUser(null);
 	}
 }

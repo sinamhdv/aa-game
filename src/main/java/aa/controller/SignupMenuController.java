@@ -11,7 +11,7 @@ public class SignupMenuController {
 			return SignupMenuMessage.USER_ALREADY_EXISTS;
 		if (!FormatValidation.checkUsernameFormat(username))
 			return SignupMenuMessage.INVALID_USERNAME_FORMAT;
-		// TODO: add a new user to the database
+		new User(username, password);
 		return SignupMenuMessage.SUCCESS;
 	}
 }

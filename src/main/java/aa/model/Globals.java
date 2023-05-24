@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 public class Globals {
 	private static ArrayList<User> allUsers;
+	private static User currentUser;
 
 	public static User getUserByName(String username) {
 		for (User user : allUsers)
-			if (user.getUsername() == username)
+			if (user.getUsername().equals(username))
 				return user;
 		return null;
 	}
@@ -19,5 +20,12 @@ public class Globals {
 	}
 	public static void addUser(User user) {
 		allUsers.add(user);
+	}
+
+	public static User getCurrentUser() {
+		return currentUser;
+	}
+	public static void setCurrentUser(User currentUser) {
+		Globals.currentUser = currentUser;
 	}
 }

@@ -32,7 +32,8 @@ public class LoginMenuEventController {
 	}
 
 	public void guestButtonClicked(MouseEvent mouseEvent) throws Exception {
-		System.out.println("guest mode");
+		LoginMenuController.setGuestMode();
+		new MainMenu().start(LoginMenu.getStage());
 	}
 
 	public void gotoSignupMenuClicked(MouseEvent mouseEvent) throws Exception {

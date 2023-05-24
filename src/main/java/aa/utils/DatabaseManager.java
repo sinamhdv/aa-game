@@ -74,8 +74,8 @@ public class DatabaseManager {
 	// Users
 	public static void loadUsers() {
 		String json = readAllFromFile(USER_DATABASE_FILENAME);
-		User[] users = (json == null ? new User[0] : new Gson().fromJson(json, User[].class));
-		Globals.setAllUsers(new ArrayList<>(Arrays.asList(users)));
+		User[] users = (json == null ? null : new Gson().fromJson(json, User[].class));
+		Globals.setAllUsers((users == null ? new ArrayList<>() : new ArrayList<>(Arrays.asList(users))));
 	}
 
 	public static void saveUsers() {

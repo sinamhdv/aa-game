@@ -7,4 +7,5 @@ module aa {
 
     exports aa.view;
     opens aa.view.eventcontrollers to javafx.fxml;
+    opens aa.model to com.google.gson;
 }
