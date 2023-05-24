@@ -6,6 +6,6 @@ module aa {
     requires org.apache.commons.io;
 
     exports aa.view;
-    opens aa.view.eventcontrollers to javafx.fxml;
+    opens aa.view to javafx.fxml;
     opens aa.model to com.google.gson;
 }
