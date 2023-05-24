@@ -1,6 +1,7 @@
 package aa.view;
 
 import aa.controller.ProfileMenuController;
+import aa.controller.SignupMenuController;
 import aa.controller.messages.AccountManagementMessage;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -33,11 +34,13 @@ public class ProfileMenu extends Application {
 	}
 
 	public void changePasswordButtonHandler(MouseEvent mouseEvent) {
-		
+		updateErrorText(ProfileMenuController.changePassword(passwordField.getText()));
 	}
 
 	public void changeAvatarButtonHandler(MouseEvent mouseEvent) {
-		
+		if (avatarRadioButtons[4].isSelected())
+			SignupMenuController.pickRandomAvatar();
+		updateErrorText(ProfileMenuController.changeAvatar());
 	}
 
 	public void deleteAccountButtonHandler(MouseEvent mouseEvent) throws Exception {

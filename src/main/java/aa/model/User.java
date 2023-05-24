@@ -40,10 +40,19 @@ public class User {
 	public int[] getPlayingTime() {
 		return playingTime;
 	}
+	public void setHighscore(int index, int value) {
+		highscore[index] = value;
+		DatabaseManager.saveUsers();
+	}
+	public void setPlayingTime(int index, int value) {
+		playingTime[index] = value;
+		DatabaseManager.saveUsers();
+	}
 	public String getAvatarURL() {
 		return avatarURL;
 	}
 	public void setAvatarURL(String avatarURL) {
 		this.avatarURL = avatarURL;
+		DatabaseManager.saveUsers();
 	}
 }
