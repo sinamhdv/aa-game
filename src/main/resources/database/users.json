@@ -1,1 +1,32 @@
-[{"username":"sina","password":"asd","highscore":[0,0,0],"playingTime":[0,0,0]}]
+[
+	{
+		"username": "sina",
+		"password": "asd",
+		"avatarURL": "file:/home/sinamhdv/Documents/coding/AP/aa-game/target/classes/images/avatars/3.jpg",
+		"highscore": [
+			0,
+			0,
+			0
+		],
+		"playingTime": [
+			0,
+			0,
+			0
+		]
+	},
+	{
+		"username": "mmd",
+		"password": "asd",
+		"avatarURL": "file:/home/sinamhdv/Desktop/flower.jpeg",
+		"highscore": [
+			0,
+			0,
+			0
+		],
+		"playingTime": [
+			0,
+			0,
+			0
+		]
+	}
+]

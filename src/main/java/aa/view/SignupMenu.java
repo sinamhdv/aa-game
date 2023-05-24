@@ -58,6 +58,8 @@ public class SignupMenu extends Application {
 		File file = fileChooser.showOpenDialog(LoginMenu.getStage());
 		if (file != null)
 			SignupMenuController.setAvatarFilePath("file:" + file.getAbsolutePath());
+		else
+			SignupMenuController.setAvatarFilePath(null);
 	}
 
 	public void pickDefaultAvatar(int index) {

@@ -5,12 +5,14 @@ import aa.utils.DatabaseManager;
 public class User {
 	private String username;
 	private String password;
+	private String avatarURL;
 	private final int[] highscore = new int[3];
 	private final int[] playingTime = new int[3];
 
-	public User(String username, String password) {
+	public User(String username, String password, String avatarURL) {
 		this.username = username;
 		this.password = password;
+		this.avatarURL = avatarURL;
 		Globals.addUser(this);
 		DatabaseManager.saveUsers();
 	}
@@ -38,5 +40,11 @@ public class User {
 	}
 	public int[] getPlayingTime() {
 		return playingTime;
+	}
+	public String getAvatarURL() {
+		return avatarURL;
+	}
+	public void setAvatarURL(String avatarURL) {
+		this.avatarURL = avatarURL;
 	}
 }
