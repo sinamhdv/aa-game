@@ -39,9 +39,4 @@ public class LoginMenuEventController {
 	public void gotoSignupMenuClicked(MouseEvent mouseEvent) throws Exception {
 		new SignupMenu().start(LoginMenu.getStage());
 	}
-
-	@FXML
-	private void initialize() {
-		
-	}
 }
