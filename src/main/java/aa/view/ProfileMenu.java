@@ -3,6 +3,7 @@ package aa.view;
 import aa.controller.ProfileMenuController;
 import aa.controller.SignupMenuController;
 import aa.controller.messages.AccountManagementMessage;
+import aa.model.Globals;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -26,11 +29,16 @@ public class ProfileMenu extends Application {
 	private Label errorText;
 	@FXML
 	private HBox avatarsBox;
+	@FXML
+	private ImageView avatarImage;
+	@FXML
+	private Label displayUsernameLabel;
 
 	private RadioButton[] avatarRadioButtons = new RadioButton[6];
 
 	public void changeUsernameButtonHandler(MouseEvent mouseEvent) {
 		updateErrorText(ProfileMenuController.changeUsername(usernameTextField.getText()));
+		updateProfileInfo();
 	}
 
 	public void changePasswordButtonHandler(MouseEvent mouseEvent) {
@@ -41,6 +49,7 @@ public class ProfileMenu extends Application {
 		if (avatarRadioButtons[4].isSelected())
 			SignupMenuController.pickRandomAvatar();
 		updateErrorText(ProfileMenuController.changeAvatar());
+		updateProfileInfo();
 	}
 
 	public void deleteAccountButtonHandler(MouseEvent mouseEvent) throws Exception {
@@ -61,9 +70,15 @@ public class ProfileMenu extends Application {
 			errorText.setTextFill(Color.GREEN);
 	}
 
+	private void updateProfileInfo() {
+		avatarImage.setImage(new Image(Globals.getCurrentUser().getAvatarURL()));
+		displayUsernameLabel.setText(Globals.getCurrentUser().getUsername());
+	}
+
 	@FXML
 	private void initialize() {
 		SignupMenu.handleAvatarSelection(avatarRadioButtons, avatarsBox);
+		updateProfileInfo();
 	}
 
 	@Override
