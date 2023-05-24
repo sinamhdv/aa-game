@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import aa.utils.DatabaseManager;
 
 public class User {
-	private static ArrayList<User> allUsers;
-
 	private String username;
 	private String password;
 	private final int[] highscore = new int[3];
@@ -15,7 +13,7 @@ public class User {
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
-		allUsers.add(this);
+		Globals.addUser(this);
 		DatabaseManager.saveUsers();
 	}
 
@@ -42,18 +40,5 @@ public class User {
 	}
 	public int[] getPlayingTime() {
 		return playingTime;
-	}
-
-	public static User byName(String username) {
-		for (User user : allUsers)
-			if (user.username == username)
-				return user;
-		return null;
-	}
-	public static ArrayList<User> getAllUsers() {
-		return allUsers;
-	}
-	public static void setAllUsers(ArrayList<User> allUsers) {
-		User.allUsers = allUsers;
 	}
 }

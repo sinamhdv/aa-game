@@ -5,7 +5,7 @@ public enum LoginMenuMessage {
 	INVALID_CREDENTIALS("Username and password didn't match"),
 	;
 
-	private String errorString;
+	private final String errorString;
 
 	private LoginMenuMessage(String errorString) {
 		this.errorString = errorString;

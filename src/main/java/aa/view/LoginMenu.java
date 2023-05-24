@@ -14,12 +14,12 @@ public class LoginMenu extends Application {
 	}
 
 	public static void main(String[] args) {
+		DatabaseManager.loadUsers();
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		DatabaseManager.loadUsers();
 		LoginMenu.stage = stage;
 		BorderPane borderPane = FXMLLoader.load(LoginMenu.class.getResource("/fxml/LoginMenu.fxml"));
 		Scene scene = new Scene(borderPane);

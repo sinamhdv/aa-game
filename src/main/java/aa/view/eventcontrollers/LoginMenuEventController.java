@@ -4,6 +4,7 @@ import aa.controller.LoginMenuController;
 import aa.controller.messages.LoginMenuMessage;
 import aa.view.LoginMenu;
 import aa.view.MainMenu;
+import aa.view.SignupMenu;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -35,7 +36,7 @@ public class LoginMenuEventController {
 	}
 
 	public void gotoSignupMenuClicked(MouseEvent mouseEvent) throws Exception {
-		System.out.println("signup menu");
+		new SignupMenu().start(LoginMenu.getStage());
 	}
 
 	@FXML
