@@ -109,6 +109,9 @@ public class OptionsMenu extends Application {
 		});
 		keyPressDetector.setOnKeyPressed(event -> {
 			KeyCode key = event.getCode();
+			for (int i = 0; i < settings.getControls().length; i++)
+				if (i != currentKeyIndex && settings.getControls()[i] == key)
+					return;
 			settings.getControls()[currentKeyIndex] = key;
 			loadUserSettings();
 			shoot1KeyText.requestFocus();
