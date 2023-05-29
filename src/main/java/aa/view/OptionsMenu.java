@@ -1,8 +1,8 @@
 package aa.view;
 
-import aa.model.GameConstants;
 import aa.model.GameSettings;
 import aa.model.Globals;
+import aa.utils.GameConstants;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +33,9 @@ public class OptionsMenu extends Application {
 	@FXML
 	private Rectangle keyPressDetector;
 	@FXML
-	private Label shootKeyText;
+	private Label shoot1KeyText;
+	@FXML
+	private Label shoot2KeyText;
 	@FXML
 	private Label freezeKeyText;
 
@@ -83,8 +85,9 @@ public class OptionsMenu extends Application {
 		arrangementComboBox.getSelectionModel().select(settings.getArrangementIndex());
 		soundCheckBox.setSelected(settings.hasSound());
 		grayscaleCheckBox.setSelected(settings.isGrayscale());
-		shootKeyText.setText("Shoot Key: " + settings.getControls()[0].getName());
-		freezeKeyText.setText("Freeze Key: " + settings.getControls()[1].getName());
+		shoot1KeyText.setText("Player1 Shoot Key: " + settings.getControls()[0].getName());
+		shoot2KeyText.setText("Player2 Shoot Key: " + settings.getControls()[1].getName());
+		freezeKeyText.setText("Freeze Key: " + settings.getControls()[2].getName());
 	}
 
 	private void addListeners() {
@@ -108,7 +111,7 @@ public class OptionsMenu extends Application {
 			KeyCode key = event.getCode();
 			settings.getControls()[currentKeyIndex] = key;
 			loadUserSettings();
-			shootKeyText.requestFocus();
+			shoot1KeyText.requestFocus();
 		});
 	}
 
@@ -116,15 +119,22 @@ public class OptionsMenu extends Application {
 		new MainMenu().start(LoginMenu.getStage());
 	}
 
-	public void changeShootKeyButtonHandler(MouseEvent mouseEvent) {
+	public void changeShoot1KeyButtonHandler(MouseEvent mouseEvent) {
 		currentKeyIndex = 0;
 		loadUserSettings();
-		shootKeyText.setText("Press Any Key");
+		shoot1KeyText.setText("Press Any Key");
+		keyPressDetector.requestFocus();
+	}
+
+	public void changeShoot2KeyButtonHandler(MouseEvent mouseEvent) {
+		currentKeyIndex = 1;
+		loadUserSettings();
+		shoot2KeyText.setText("Press Any Key");
 		keyPressDetector.requestFocus();
 	}
 
 	public void changeFreezeKeyButtonHandler(MouseEvent mouseEvent) {
-		currentKeyIndex = 1;
+		currentKeyIndex = 2;
 		loadUserSettings();
 		freezeKeyText.setText("Press Any Key");
 		keyPressDetector.requestFocus();

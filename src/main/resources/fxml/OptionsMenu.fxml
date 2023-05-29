@@ -33,8 +33,12 @@
 			<CheckBox text="Grayscale Mode" fx:id="grayscaleCheckBox"/>
 
 			<HBox alignment="CENTER" spacing="10">
-				<Label text="" fx:id="shootKeyText"/>
-				<Button text="Change" onMouseClicked="#changeShootKeyButtonHandler"/>
+				<Label text="" fx:id="shoot1KeyText"/>
+				<Button text="Change" onMouseClicked="#changeShoot1KeyButtonHandler"/>
+			</HBox>
+			<HBox alignment="CENTER" spacing="10">
+				<Label text="" fx:id="shoot2KeyText"/>
+				<Button text="Change" onMouseClicked="#changeShoot2KeyButtonHandler"/>
 			</HBox>
 			<HBox alignment="CENTER" spacing="10">
 				<Label text="" fx:id="freezeKeyText"/>
