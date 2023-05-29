@@ -17,7 +17,7 @@
 		<VBox alignment="CENTER" spacing="20">
 			<Label text="Scoreboard" styleClass="menu-label"/>
 			<ComboBox fx:id="difficultyComboBox"/>
-			<TableView fx:id="table">
+			<TableView fx:id="table" style="-fx-padding: 0 20 0 20;">
 			</TableView>
 			<Button text="Back" onMouseClicked="#backButtonHandler"/>
 		</VBox>

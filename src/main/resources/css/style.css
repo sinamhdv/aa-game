@@ -1,7 +1,13 @@
 .menu-label {
 	-fx-font-size: 20px;
+	font-size: 20px;
 }
 
 .error-text {
 	-fx-text-fill: red;
+}
+
+.top-3-scoreboard {
+	-fx-background-color: gold;
+	background-color: gold;
 }

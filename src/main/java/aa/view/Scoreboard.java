@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -54,6 +55,7 @@ public class Scoreboard extends Application {
 
 	private void refreshTableView() {
 		table.getColumns().clear();
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 		TableColumn<User, Void> indexColumn = new TableColumn<>("Index");
 		indexColumn.setCellFactory(column -> {
@@ -80,17 +82,31 @@ public class Scoreboard extends Application {
 		playingTimeColumn.setCellValueFactory(cell ->
 			new SimpleIntegerProperty(cell.getValue().getPlayingTime()[difficulty]).asObject());
 		table.getColumns().add(playingTimeColumn);
+
+		setTableRowFactory();
+	}
+
+	private void setTableRowFactory() {
+		table.setRowFactory(tv -> {
+			TableRow<User> row = new TableRow<>() {
+				@Override
+				protected void updateItem(User item, boolean empty) {
+					super.updateItem(item, empty);
+					if (!empty && getIndex() < 3)
+						getStyleClass().add("top-3-scoreboard");
+					else
+						getStyleClass().remove("top-3-scoreboard");
+				}
+			};
+			return row;
+		});
 	}
 
 	private void refreshList() {
 		ArrayList<User> scoreboard = Globals.getScoreboard(difficulty);
 		table.getItems().clear();
-		for (int i = 0; i < 10 && i < scoreboard.size(); i++) {
+		for (int i = 0; i < 10 && i < scoreboard.size(); i++)
 			table.getItems().add(scoreboard.get(i));
-			if (i < 3) {
-				// TODO: edit style
-			}
-		}
 		refreshTableView();
 	}
 
