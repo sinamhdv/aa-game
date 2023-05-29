@@ -1,20 +1,31 @@
 package aa.view;
 
+import java.util.ArrayList;
+
+import aa.model.Globals;
+import aa.model.User;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Scoreboard extends Application {
 	@FXML
-	private VBox teamsListBox;
+	private TableView<User> table;
 	@FXML
 	private ComboBox<String> difficultyComboBox;
+
+	private int difficulty;
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -26,11 +37,61 @@ public class Scoreboard extends Application {
 
 	@FXML
 	private void initialize() {
+		difficulty = 0;
 		setupDifficultyComboBox(difficultyComboBox);
+		refreshList();
 	}
 
 	private void setupDifficultyComboBox(ComboBox<String> comboBox) {
 		comboBox.getItems().addAll("Easy", "Medium", "Hard");
+		comboBox.getSelectionModel().select(difficulty);
+		comboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldIndex, newIndex) -> {
+			difficulty = newIndex.intValue();
+			System.out.println("selected: " + newIndex);
+			refreshList();
+		});
+	}
+
+	private void refreshTableView() {
+		table.getColumns().clear();
+
+		TableColumn<User, Void> indexColumn = new TableColumn<>("Index");
+		indexColumn.setCellFactory(column -> {
+			TableCell<User, Void> cell = new TableCell<>();
+			cell.textProperty().bind(Bindings.createStringBinding(() -> {
+				if (cell.isEmpty())
+					return null;
+				return Integer.toString(cell.getIndex() + 1);
+			}, cell.emptyProperty(), cell.indexProperty()));
+			return cell;
+		});
+		table.getColumns().add(indexColumn);
+
+		TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
+		usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+		table.getColumns().add(usernameColumn);
+
+		TableColumn<User, Integer> highscoreColumn = new TableColumn<>("Highscore");
+		highscoreColumn.setCellValueFactory(cell ->
+			new SimpleIntegerProperty(cell.getValue().getHighscore()[difficulty]).asObject());
+		table.getColumns().add(highscoreColumn);
+
+		TableColumn<User, Integer> playingTimeColumn = new TableColumn<>("Playing Time");
+		playingTimeColumn.setCellValueFactory(cell ->
+			new SimpleIntegerProperty(cell.getValue().getPlayingTime()[difficulty]).asObject());
+		table.getColumns().add(playingTimeColumn);
+	}
+
+	private void refreshList() {
+		ArrayList<User> scoreboard = Globals.getScoreboard(difficulty);
+		table.getItems().clear();
+		for (int i = 0; i < 10 && i < scoreboard.size(); i++) {
+			table.getItems().add(scoreboard.get(i));
+			if (i < 3) {
+				// TODO: edit style
+			}
+		}
+		refreshTableView();
 	}
 
 	public void backButtonHandler(MouseEvent mouseEvent) throws Exception {

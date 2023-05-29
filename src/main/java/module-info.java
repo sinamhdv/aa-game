@@ -7,5 +7,5 @@ module aa {
 
     exports aa.view;
     opens aa.view to javafx.fxml;
-    opens aa.model to com.google.gson;
+    opens aa.model to com.google.gson, javafx.base;
 }
