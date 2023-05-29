@@ -38,6 +38,7 @@
 
 			<Button text="Delete Account" onMouseClicked="#deleteAccountButtonHandler"/>
 			<Button text="Log out" onMouseClicked="#logoutButtonHandler"/>
+			<Button text="Back" onMouseClicked="#backButtonHandler"/>
 
 			<Label text="" styleClass="error-text" fx:id="errorText"/>
 		</VBox>

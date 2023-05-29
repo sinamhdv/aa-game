@@ -62,6 +62,10 @@ public class ProfileMenu extends Application {
 		new LoginMenu().start(LoginMenu.getStage());
 	}
 
+	public void backButtonHandler(MouseEvent mouseEvent) throws Exception {
+		new MainMenu().start(LoginMenu.getStage());
+	}
+
 	private void updateErrorText(AccountManagementMessage message) {
 		errorText.setText(message.getErrorString());
 		if (message != AccountManagementMessage.SUCCESS)
