@@ -35,8 +35,8 @@ public class MainMenu extends Application {
 		new Scoreboard().start(LoginMenu.getStage());
 	}
 
-	public void optionsButtonClicked(MouseEvent mouseEvent) {
-		System.out.println("options");
+	public void optionsButtonClicked(MouseEvent mouseEvent) throws Exception {
+		new OptionsMenu().start(LoginMenu.getStage());
 	}
 
 	public void exitButtonClicked(MouseEvent mouseEvent) {

@@ -48,7 +48,6 @@ public class Scoreboard extends Application {
 		comboBox.getSelectionModel().select(difficulty);
 		comboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldIndex, newIndex) -> {
 			difficulty = newIndex.intValue();
-			System.out.println("selected: " + newIndex);
 			refreshList();
 		});
 	}
