@@ -35,7 +35,7 @@ public class SignupMenuController {
 		if (avatarFilePath == null)
 			return AccountManagementMessage.NO_AVATAR;
 		System.out.println("DBG: " + avatarFilePath);
-		new User(username, password, avatarFilePath);
+		new User(username, password, avatarFilePath, false);
 		return AccountManagementMessage.SUCCESS;
 	}
 

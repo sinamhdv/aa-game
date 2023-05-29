@@ -24,7 +24,7 @@ public class MainMenu extends Application {
 	}
 
 	public void profileButtonClicked(MouseEvent mouseEvent) throws Exception {
-		if (Globals.getCurrentUser() == null) {
+		if (Globals.getCurrentUser().isGuest()) {
 			errorText.setText("Not available in guest mode");
 			return;
 		}

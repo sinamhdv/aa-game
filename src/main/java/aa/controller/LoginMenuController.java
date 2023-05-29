@@ -14,6 +14,7 @@ public class LoginMenuController {
 	}
 
 	public static void setGuestMode() {
-		Globals.setCurrentUser(null);
+		Globals.setCurrentUser(new User("--GUEST--", "",
+			SignupMenuController.avatarImagesPath[0], true));
 	}
 }
