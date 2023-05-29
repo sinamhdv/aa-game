@@ -15,19 +15,22 @@
 			prefHeight="600.0" prefWidth="600.0">
 
 	<center>
-		<VBox alignment="CENTER" spacing="20">
+		<VBox alignment="CENTER" spacing="10">
 			<Label text="Options" styleClass="menu-label"/>
 
 			<Label text="Difficulty:"/>
 			<ComboBox fx:id="difficultyComboBox"/>
 
+			<Label text="" fx:id="ballsCountLabel"/>
+			<Slider fx:id="ballsCountSlider" maxWidth="400" majorTickUnit="1" minorTickCount="0" showTickLabels="true" showTickMarks="true"/>
+
 			<Label text="Initial Balls Arrangement:"/>
 			<ComboBox fx:id="arrangementComboBox"/>
 
-			<CheckBox text="Mute Game Sound" fx:id="muteCheckBox"/>
+			<CheckBox text="Game Sound" fx:id="soundCheckBox"/>
 
 			<CheckBox text="Grayscale Mode" fx:id="grayscaleCheckBox"/>
-			
+
 			<Button text="Back" onMouseClicked="#backButtonHandler"/>
 		</VBox>
 	</center>

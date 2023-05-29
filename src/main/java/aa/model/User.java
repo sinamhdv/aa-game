@@ -9,6 +9,7 @@ public class User {
 	private final int[] highscore = new int[3];
 	private final int[] playingTime = new int[3];
 	private transient boolean isGuest = false;
+	private final GameSettings gameSettings = new GameSettings(this);
 
 	public User(String username, String password, String avatarURL, boolean isGuest) {
 		this.username = username;
@@ -29,36 +30,49 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 		if (!isGuest()) DatabaseManager.saveUsers();
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 		if (!isGuest()) DatabaseManager.saveUsers();
 	}
+
 	public int[] getHighscore() {
 		return highscore;
 	}
+
 	public int[] getPlayingTime() {
 		return playingTime;
 	}
+
 	public void setHighscore(int index, int value) {
 		highscore[index] = value;
 		if (!isGuest()) DatabaseManager.saveUsers();
 	}
+
 	public void setPlayingTime(int index, int value) {
 		playingTime[index] = value;
 		if (!isGuest()) DatabaseManager.saveUsers();
 	}
+
 	public String getAvatarURL() {
 		return avatarURL;
 	}
+
 	public void setAvatarURL(String avatarURL) {
 		this.avatarURL = avatarURL;
 		if (!isGuest()) DatabaseManager.saveUsers();
+	}
+
+	public GameSettings getGameSettings() {
+		return gameSettings;
 	}
 }
