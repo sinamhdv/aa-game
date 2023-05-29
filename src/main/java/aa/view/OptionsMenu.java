@@ -11,8 +11,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class OptionsMenu extends Application {
@@ -28,6 +30,14 @@ public class OptionsMenu extends Application {
 	private CheckBox soundCheckBox;
 	@FXML
 	private CheckBox grayscaleCheckBox;
+	@FXML
+	private Rectangle keyPressDetector;
+	@FXML
+	private Label shootKeyText;
+	@FXML
+	private Label freezeKeyText;
+
+	private int currentKeyIndex;
 
 	private GameSettings settings = Globals.getCurrentUser().getGameSettings();
 
@@ -46,7 +56,6 @@ public class OptionsMenu extends Application {
 		loadUserSettings();
 		initBallsCountSlider();
 		addListeners();
-		// TODO: customizing controls
 	}
 
 	private void initDifficultyComboBox() {
@@ -74,6 +83,8 @@ public class OptionsMenu extends Application {
 		arrangementComboBox.getSelectionModel().select(settings.getArrangementIndex());
 		soundCheckBox.setSelected(settings.hasSound());
 		grayscaleCheckBox.setSelected(settings.isGrayscale());
+		shootKeyText.setText("Shoot Key: " + settings.getControls()[0].getName());
+		freezeKeyText.setText("Freeze Key: " + settings.getControls()[1].getName());
 	}
 
 	private void addListeners() {
@@ -93,9 +104,29 @@ public class OptionsMenu extends Application {
 		grayscaleCheckBox.selectedProperty().addListener((observer, oldState, newState) -> {
 			settings.setGrayscale(newState.booleanValue());
 		});
+		keyPressDetector.setOnKeyPressed(event -> {
+			KeyCode key = event.getCode();
+			settings.getControls()[currentKeyIndex] = key;
+			loadUserSettings();
+			shootKeyText.requestFocus();
+		});
 	}
 
 	public void backButtonHandler(MouseEvent mouseEvent) throws Exception {
 		new MainMenu().start(LoginMenu.getStage());
+	}
+
+	public void changeShootKeyButtonHandler(MouseEvent mouseEvent) {
+		currentKeyIndex = 0;
+		loadUserSettings();
+		shootKeyText.setText("Press Any Key");
+		keyPressDetector.requestFocus();
+	}
+
+	public void changeFreezeKeyButtonHandler(MouseEvent mouseEvent) {
+		currentKeyIndex = 1;
+		loadUserSettings();
+		freezeKeyText.setText("Press Any Key");
+		keyPressDetector.requestFocus();
 	}
 }

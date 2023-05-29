@@ -1,6 +1,7 @@
 package aa.model;
 
 import aa.utils.DatabaseManager;
+import javafx.scene.input.KeyCode;
 
 public class GameSettings {
 	private int difficulty = 1;
@@ -8,8 +9,8 @@ public class GameSettings {
 	private int arrangementIndex = 0;
 	private boolean hasSound = true;
 	private boolean isGrayscale = false;
+	private KeyCode[] controls = {KeyCode.SPACE, KeyCode.TAB};
 	private transient User owner;
-	// TODO: add custom controls
 
 	public GameSettings(User owner) {
 		this.owner = owner;
@@ -58,5 +59,9 @@ public class GameSettings {
 	public void setGrayscale(boolean isGrayscale) {
 		this.isGrayscale = isGrayscale;
 		if (!owner.isGuest()) DatabaseManager.saveUsers();
+	}
+
+	public KeyCode[] getControls() {
+		return controls;
 	}
 }

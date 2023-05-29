@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
 			xmlns:fx="http://javafx.com/fxml"
@@ -30,6 +31,16 @@
 			<CheckBox text="Game Sound" fx:id="soundCheckBox"/>
 
 			<CheckBox text="Grayscale Mode" fx:id="grayscaleCheckBox"/>
+
+			<HBox alignment="CENTER" spacing="10">
+				<Label text="" fx:id="shootKeyText"/>
+				<Button text="Change" onMouseClicked="#changeShootKeyButtonHandler"/>
+			</HBox>
+			<HBox alignment="CENTER" spacing="10">
+				<Label text="" fx:id="freezeKeyText"/>
+				<Button text="Change" onMouseClicked="#changeFreezeKeyButtonHandler"/>
+			</HBox>
+			<Rectangle width="0" height="0" fx:id="keyPressDetector"/>
 
 			<Button text="Back" onMouseClicked="#backButtonHandler"/>
 		</VBox>
