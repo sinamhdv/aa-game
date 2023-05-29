@@ -9,6 +9,7 @@ import aa.utils.DatabaseManager;
 public class Globals {
 	private static ArrayList<User> allUsers;
 	private static User currentUser;
+	private static Game currentGame;
 
 	public static User getUserByName(String username) {
 		for (User user : allUsers)
@@ -52,5 +53,12 @@ public class Globals {
 	}
 	public static void setCurrentUser(User currentUser) {
 		Globals.currentUser = currentUser;
+	}
+
+	public static Game getCurrentGame() {
+		return currentGame;
+	}
+	public static void setCurrentGame(Game currentGame) {
+		Globals.currentGame = currentGame;
 	}
 }

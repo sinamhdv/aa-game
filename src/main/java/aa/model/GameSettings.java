@@ -1,6 +1,7 @@
 package aa.model;
 
 import aa.utils.DatabaseManager;
+import aa.utils.GameConstants;
 import javafx.scene.input.KeyCode;
 
 public class GameSettings {
@@ -9,7 +10,7 @@ public class GameSettings {
 	private int arrangementIndex = 0;
 	private boolean hasSound = true;
 	private boolean isGrayscale = false;
-	private KeyCode[] controls = {KeyCode.SPACE, KeyCode.TAB};
+	private KeyCode[] controls = {KeyCode.SPACE, KeyCode.ENTER, KeyCode.TAB};
 	private transient User owner;
 
 	public GameSettings(User owner) {

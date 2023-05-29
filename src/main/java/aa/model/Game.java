@@ -1,5 +1,7 @@
 package aa.model;
 
+import aa.utils.GameConstants;
+
 public class Game {
 	private final int playersCount;
 	private final int[] initialBallsCount;
