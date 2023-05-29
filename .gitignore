@@ -1,2 +1,4 @@
 .vscode/
 target/
+TODO.md
+src/main/resources/database/users.json

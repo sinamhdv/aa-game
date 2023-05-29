@@ -34,7 +34,7 @@ public class SignupMenuController {
 			return AccountManagementMessage.INVALID_USERNAME_FORMAT;
 		if (avatarFilePath == null)
 			return AccountManagementMessage.NO_AVATAR;
-		System.out.println(avatarFilePath);
+		System.out.println("DBG: " + avatarFilePath);
 		new User(username, password, avatarFilePath);
 		return AccountManagementMessage.SUCCESS;
 	}
