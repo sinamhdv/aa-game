@@ -61,4 +61,17 @@ public class GameController {
 	private void loseGame() {
 		gameScreen.getPane().getChildren().add(new Label("hahahahahaha"));
 	}
+
+	public void startGameTimer() {
+		gameScreen.updateTimerText();
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
+			if (game.getRemainingSeconds() == 0) {
+				loseGame();
+			}
+			game.setRemainingSeconds(game.getRemainingSeconds() - 1);
+			gameScreen.updateTimerText();
+		}));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+	}
 }

@@ -87,6 +87,7 @@ public class GameScreen extends Application {
 		loadInitialArrangement();
 		setupHUD();
 		updateHUD();
+		controller.startGameTimer();
 	}
 
 	private void setupHUD() {
@@ -115,20 +116,25 @@ public class GameScreen extends Application {
 		player2RemainingBallsText.setText(Integer.toString(game.getRemainingBallsCount()[1]));
 		freezeBar.setProgress(game.getFreezeBarPercent() / 100.0);
 		windText.setText("Wind: " + game.getWindAngle());
-		scoreText.setText(String.format("%2s", Integer.toString(game.getScore())).replace(' ', '0'));
+		scoreText.setText(String.format("%02d", game.getScore()));
 		for (int playerIndex = 0; playerIndex < game.getPlayersCount(); playerIndex++) {
 			for (int i = 0; i < 3; i++) {
 				stationaryBalls[playerIndex][i].setCenterX(game.getShootX()[playerIndex]);
 				remainingBallsLabels[playerIndex][i].setLayoutX(
 					stationaryBalls[playerIndex][i].getLayoutBounds().getMinX() + 7);
-				remainingBallsLabels[playerIndex][i].setText(String.format("%2s", 
-					Integer.toString(game.getRemainingBallsCount()[playerIndex] - i)).replace(' ', '0'));
+				remainingBallsLabels[playerIndex][i].setText(String.format("%02d", 
+					game.getRemainingBallsCount()[playerIndex] - i));
 				if (i >= game.getRemainingBallsCount()[playerIndex]) {
 					stationaryBalls[playerIndex][i].setVisible(false);
 					remainingBallsLabels[playerIndex][i].setVisible(false);
 				}
 			}
 		}
+	}
+
+	public void updateTimerText() {
+		timerText.setText(String.format("%02d:%02d",
+			game.getRemainingSeconds() / 60, game.getRemainingSeconds() % 60));
 	}
 
 	private void setupCentralDisk() {
