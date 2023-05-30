@@ -56,8 +56,6 @@ public class GameScreen extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Globals.setCurrentGameScreen(this);
-		controller = new GameController();
 		pane = FXMLLoader.load(GameScreen.class.getResource("/fxml/GameScreen.fxml"));
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
@@ -70,6 +68,8 @@ public class GameScreen extends Application {
 
 	@FXML
 	private void initialize() {
+		Globals.setCurrentGameScreen(this);
+		controller = new GameController();
 		addKeyListeners();
 		setupCentralDisk();
 		loadInitialArrangement();

@@ -12,7 +12,7 @@ import javafx.util.Duration;
 
 public class ShootingAnimation extends Transition {
 	private static final int CYCLE_DURATION = 1000;
-	private static final double SPEED = 10;
+	private static final double SPEED = 4;
 	
 	private Circle ball;
 	private int playerIndex;
