@@ -18,3 +18,9 @@
 	-fx-padding: 10 10 10 10;
 	padding: 10 10 10 10;
 }
+
+.score-text {
+	-fx-font-size: 80px;
+	font-size: 80px;
+	-fx-text-fill: white;
+}

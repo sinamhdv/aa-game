@@ -37,6 +37,8 @@ public class GameScreen extends Application {
 	private Label player1RemainingBallsText;
 	@FXML
 	private Label player2RemainingBallsText;
+	@FXML
+	private Label scoreText;
 
 	private Circle centralDisk;
 	private Group rotatingObjects;
@@ -77,6 +79,22 @@ public class GameScreen extends Application {
 		addKeyListeners();
 		setupCentralDisk();
 		loadInitialArrangement();
+		setupHUD();
+		updateHUD();
+	}
+
+	private void setupHUD() {
+		scoreText.setLayoutX(GameConstants.getScreenWidth() / 2 - 50);
+		scoreText.setLayoutY(GameConstants.getScreenHeight() / 2 - 50);
+		scoreText.toFront();
+	}
+
+	private void updateHUD() {
+		player1RemainingBallsText.setText(Integer.toString(game.getRemainingBallsCount()[0]));
+		player2RemainingBallsText.setText(Integer.toString(game.getRemainingBallsCount()[1]));
+		freezeBar.setProgress(game.getFreezeBarPercent() / 100.0);
+		windText.setText("Wind: " + game.getWindAngle());
+		scoreText.setText(String.format("%2s", Integer.toString(game.getScore())).replace(' ', '0'));
 	}
 
 	private void setupCentralDisk() {
@@ -115,7 +133,12 @@ public class GameScreen extends Application {
 
 	private void shootKeyHandler(int playerIndex) {
 		if (game.getPlayersCount() == 1 && playerIndex > 0) return;
+		if (game.getRemainingBallsCount()[playerIndex] == 0) return;
 		new ShootingAnimation(playerIndex, game.getWindAngle()).play();
+		game.setScore(game.getScore() + game.getPhase());
+		game.getRemainingBallsCount()[playerIndex]--;
+		game.setFreezeBarPercent(Math.max(100, game.getFreezeBarPercent() + GameConstants.FREEZE_BAR_BOOST));
+		updateHUD();
 		controller.handlePhases();
 	}
 
