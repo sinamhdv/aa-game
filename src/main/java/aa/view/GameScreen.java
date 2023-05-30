@@ -2,6 +2,7 @@ package aa.view;
 
 import java.util.ArrayList;
 
+import aa.controller.GameController;
 import aa.model.Game;
 import aa.model.GameSettings;
 import aa.model.Globals;
@@ -43,6 +44,7 @@ public class GameScreen extends Application {
 	private Game game = Globals.getCurrentGame();
 	private User user = Globals.getCurrentUser();
 	private GameSettings settings = user.getGameSettings();
+	private GameController controller = new GameController(this);
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -94,7 +96,8 @@ public class GameScreen extends Application {
 
 	private void shootKeyHandler(int playerIndex) {
 		if (game.getPlayersCount() == 1 && playerIndex > 0) return;
-		game.setRotationDirection(-game.getRotationDirection());
+		
+		// controller.handlePhases();	// TODO: uncomment this
 	}
 
 	private void freezeKeyHandler() {

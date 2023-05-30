@@ -12,6 +12,7 @@ public class Game {
 	private int windAngle = 0;
 	private int score = 0;
 	private int rotationDirection = 1;
+	private int lastStartedPhase = 1;
 
 	public Game(int playersCount) {
 		this.playersCount = playersCount;
@@ -74,5 +75,22 @@ public class Game {
 
 	public void setRotationDirection(int rotationDirection) {
 		this.rotationDirection = rotationDirection;
+	}
+
+	public int getPhase() {
+		int remaining = remainingBallsCount[0] + remainingBallsCount[1];
+		int initial = initialBallsCount[0] + initialBallsCount[1];
+		if (remaining * 4 <= initial) return 4;
+		if (remaining * 2 <= initial) return 3;
+		if (remaining * 4 <= initial * 3) return 2;
+		return 1;
+	}
+
+	public int getLastStartedPhase() {
+		return lastStartedPhase;
+	}
+
+	public void setLastStartedPhase(int lastStartedPhase) {
+		this.lastStartedPhase = lastStartedPhase;
 	}
 }

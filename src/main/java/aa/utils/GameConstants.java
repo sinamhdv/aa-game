@@ -7,6 +7,9 @@ public class GameConstants {
 	public static final int MAX_BALLS_COUNT = 20;
 	public static final int GAME_TIMEOUT = 180;
 
+	public static final double MIN_TURN_REVERSAL_INTERVALS = 4;
+	public static final double MAX_TURN_REVERSAL_INTERVALS = 8;
+
 	public static final double[] ARRANGEMENT1 = {0, 72, 144, 216, 288};
 
 	public static int getScreenHeight() {
