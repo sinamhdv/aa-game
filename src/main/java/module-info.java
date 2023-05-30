@@ -7,6 +7,7 @@ module aa {
 
     exports aa.view;
     exports aa.view.animations;
+    exports aa.model.gameobjects;
     opens aa.view to javafx.fxml;
     opens aa.model to com.google.gson, javafx.base;
 }

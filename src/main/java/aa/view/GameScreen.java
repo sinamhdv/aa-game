@@ -40,15 +40,16 @@ public class GameScreen extends Application {
 	@FXML
 	private Label scoreText;
 
-	private Circle centralDisk;
-	private Group rotatingObjects;
-	private ArrayList<Needle> needles = new ArrayList<>();
-
 	private Game game = Globals.getCurrentGame();
 	private User user = Globals.getCurrentUser();
 	private GameSettings settings = user.getGameSettings();
 	private GameController controller;
 	private RotationAnimation rotationAnimation;
+
+	private Circle centralDisk;
+	private Group rotatingObjects;
+	private ArrayList<Needle> needles = new ArrayList<>();
+	private Circle[][] stationaryBalls = new Circle[2][3];
 
 	public Pane getPane() {
 		return pane;
@@ -90,6 +91,13 @@ public class GameScreen extends Application {
 		scoreText.setLayoutX(GameConstants.getScreenWidth() / 2 - 50);
 		scoreText.setLayoutY(GameConstants.getScreenHeight() / 2 - 50);
 		scoreText.toFront();
+		for (int playerIndex = 0; playerIndex < game.getPlayersCount(); playerIndex++) {
+			for (int i = 0; i < 3; i++) {
+				stationaryBalls[playerIndex][i] = new Circle(game.getShootX()[playerIndex],
+					0, GameConstants.MIN_BALL_RADIUS);
+				pane.getChildren().add(stationaryBalls[playerIndex][i]);
+			}
+		}
 	}
 
 	private void updateHUD() {
@@ -98,6 +106,16 @@ public class GameScreen extends Application {
 		freezeBar.setProgress(game.getFreezeBarPercent() / 100.0);
 		windText.setText("Wind: " + game.getWindAngle());
 		scoreText.setText(String.format("%2s", Integer.toString(game.getScore())).replace(' ', '0'));
+		for (int playerIndex = 0; playerIndex < game.getPlayersCount(); playerIndex++) {
+			for (int i = 0; i < 3; i++) {
+				stationaryBalls[playerIndex][i].setCenterX(game.getShootX()[playerIndex]);
+				stationaryBalls[playerIndex][i].setCenterY(GameConstants.getScreenHeight() / 2 +
+					(GameConstants.SHOOT_STARTING_DISTANCE + i * (2 * GameConstants.MIN_BALL_RADIUS + 10)) *
+					(playerIndex == 0 ? 1 : -1));
+				if (i >= game.getRemainingBallsCount()[playerIndex])
+					stationaryBalls[playerIndex][i].setVisible(false);
+			}
+		}
 	}
 
 	private void setupCentralDisk() {

@@ -28,7 +28,7 @@ public class ShootingAnimation extends Transition {
 		this.setCycleDuration(Duration.millis(CYCLE_DURATION));
 		this.setCycleCount(Animation.INDEFINITE);
 
-		ball = new Circle(GameConstants.getScreenWidth() / 2,
+		ball = new Circle(Globals.getCurrentGame().getShootX()[playerIndex],
 			GameConstants.getScreenHeight() / 2 + (playerIndex == 0 ? 1 : -1) * GameConstants.SHOOT_STARTING_DISTANCE,
 			GameConstants.MIN_BALL_RADIUS);
 		this.gameScreen.getPane().getChildren().add(ball);
