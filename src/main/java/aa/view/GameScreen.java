@@ -10,6 +10,7 @@ import aa.model.User;
 import aa.model.gameobjects.Needle;
 import aa.utils.GameConstants;
 import aa.view.animations.RotationAnimation;
+import aa.view.animations.ShootingAnimation;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -98,14 +99,18 @@ public class GameScreen extends Application {
 	private void loadInitialArrangement() {
 		double[] arrangementAngles = GameConstants.ARRANGEMENT1;
 		for (double angle : arrangementAngles)
-			needles.add(new Needle(angle, centralDisk));
-		for (Needle needle : needles)
-			rotatingObjects.getChildren().add(needle.getGroup());
+			addNeedle(angle);
+	}
+
+	public void addNeedle(double angle) {
+		Needle needle = new Needle(angle, centralDisk);
+		needles.add(needle);
+		rotatingObjects.getChildren().add(needle.getGroup());
 	}
 
 	private void shootKeyHandler(int playerIndex) {
 		if (game.getPlayersCount() == 1 && playerIndex > 0) return;
-
+		new ShootingAnimation(playerIndex, game.getWindAngle()).play();
 		// controller.handlePhases();	// TODO: uncomment this
 	}
 
