@@ -1,12 +1,19 @@
 package aa.view;
 
+import java.util.ArrayList;
+
+import aa.model.Game;
 import aa.model.GameSettings;
 import aa.model.Globals;
 import aa.model.User;
+import aa.model.gameobjects.Needle;
 import aa.utils.GameConstants;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -15,6 +22,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GameScreen extends Application {
 	@FXML
@@ -31,7 +39,10 @@ public class GameScreen extends Application {
 	private Label player2RemainingBallsText;
 
 	private Circle centralDisk;
+	private Group rotatingObjects;
+	private ArrayList<Needle> needles = new ArrayList<>();
 
+	private Game game = Globals.getCurrentGame();
 	private User user = Globals.getCurrentUser();
 	private GameSettings settings = user.getGameSettings();
 
@@ -49,9 +60,19 @@ public class GameScreen extends Application {
 
 	@FXML
 	private void initialize() {
-		centralDisk = new Circle(GameConstants.getScreenWidth() / 2, GameConstants.getScreenHeight() / 2, 100);
-		pane.getChildren().add(centralDisk);
 		addKeyListeners();
+		setupCentralDisk();
+		loadInitialArrangement();
+	}
+
+	private void setupCentralDisk() {
+		centralDisk = new Circle(GameConstants.getScreenWidth() / 2, GameConstants.getScreenHeight() / 2, 100);
+		rotatingObjects = new Group(centralDisk);
+		pane.getChildren().add(rotatingObjects);
+		RotateTransition rotateTransition = new RotateTransition(Duration.seconds(2), rotatingObjects);
+		rotateTransition.setByAngle(360);
+		rotateTransition.setInterpolator(Interpolator.LINEAR);
+		rotateTransition.play();
 	}
 
 	private void addKeyListeners() {
@@ -68,8 +89,13 @@ public class GameScreen extends Application {
 		});
 	}
 
+	private void loadInitialArrangement() {
+		needles.add(new Needle());
+		for (Needle needle : needles) rotatingObjects.getChildren().add(needle.getGroup());
+	}
+
 	private void shootKeyHandler(int playerIndex) {
-		System.out.println("shoot " + playerIndex);
+		if (game.getPlayersCount() == 1 && playerIndex > 0) return;
 	}
 
 	private void freezeKeyHandler() {
