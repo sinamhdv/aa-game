@@ -8,8 +8,7 @@ import aa.model.Globals;
 import aa.model.User;
 import aa.model.gameobjects.Needle;
 import aa.utils.GameConstants;
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
+import aa.view.animations.RotationAnimation;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +21,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class GameScreen extends Application {
 	@FXML
@@ -69,10 +67,7 @@ public class GameScreen extends Application {
 		centralDisk = new Circle(GameConstants.getScreenWidth() / 2, GameConstants.getScreenHeight() / 2, 100);
 		rotatingObjects = new Group(centralDisk);
 		pane.getChildren().add(rotatingObjects);
-		RotateTransition rotateTransition = new RotateTransition(Duration.seconds(2), rotatingObjects);
-		rotateTransition.setByAngle(360);
-		rotateTransition.setInterpolator(Interpolator.LINEAR);
-		rotateTransition.play();
+		new RotationAnimation(rotatingObjects, centralDisk).play();
 	}
 
 	private void addKeyListeners() {
