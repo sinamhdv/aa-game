@@ -12,7 +12,7 @@ public class Game {
 	private int windAngle = 0;
 	private int score = 0;
 	private int rotationDirection = 1;
-	private int lastStartedPhase = 1;
+	private transient int lastStartedPhase = 1;
 	private int[] shootX = {GameConstants.getScreenWidth() / 2, GameConstants.getScreenWidth() / 2};
 	private boolean visibilityState = true;
 

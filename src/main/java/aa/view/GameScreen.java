@@ -137,6 +137,10 @@ public class GameScreen extends Application {
 			game.getRemainingSeconds() / 60, game.getRemainingSeconds() % 60));
 	}
 
+	public void updateWindText() {
+		windText.setText("Wind: " + game.getWindAngle());
+	}
+
 	private void setupCentralDisk() {
 		centralDisk = new Circle(GameConstants.getScreenWidth() / 2, GameConstants.getScreenHeight() / 2, 100);
 		rotatingObjects = new Group(centralDisk);

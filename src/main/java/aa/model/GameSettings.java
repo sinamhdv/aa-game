@@ -65,4 +65,22 @@ public class GameSettings {
 	public KeyCode[] getControls() {
 		return controls;
 	}
+
+	public int getRotationCycleDuration() {
+		if (difficulty == 0) return 6000;
+		else if (difficulty == 1) return 3000;
+		return 2000;
+	}
+
+	public int getWindChangingIntervals() {
+		if (difficulty == 0) return 4000;
+		else if (difficulty == 1) return 2000;
+		return 1000;
+	}
+
+	public int getFreezeDuration() {
+		if (difficulty == 0) return 7000;
+		else if (difficulty == 1) return 5000;
+		return 3000;
+	}
 }

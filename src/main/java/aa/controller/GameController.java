@@ -32,8 +32,9 @@ public class GameController {
 			startBallsInvisibilityTimer();
 			game.setLastStartedPhase(3);
 		}
-		if (game.getPhase() >= 4) {
-			// TODO: phase 4 events
+		if (game.getPhase() >= 4 && game.getLastStartedPhase() == 3) {
+			startWind();
+			game.setLastStartedPhase(4);
 		}
 	}
 
@@ -78,6 +79,17 @@ public class GameController {
 			}
 			game.setRemainingSeconds(game.getRemainingSeconds() - 1);
 			gameScreen.updateTimerText();
+		}));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+	}
+
+	private void startWind() {
+		Timeline timeline = new Timeline(new KeyFrame(
+			Duration.millis(Globals.getCurrentUser().getGameSettings().getWindChangingIntervals()),
+		event -> {
+			game.setWindAngle(new Random().nextInt(-15, 16));
+			gameScreen.updateWindText();
 		}));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();

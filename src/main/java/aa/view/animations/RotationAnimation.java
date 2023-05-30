@@ -10,8 +10,6 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 public class RotationAnimation extends Transition {
-	private static final int CYCLE_DURATION = 4000;
-
 	private Rotate rotation;
 
 	public Rotate getRotation() {
@@ -24,7 +22,7 @@ public class RotationAnimation extends Transition {
 		this.rotation.pivotYProperty().bind(pivot.centerYProperty());
 		object.getTransforms().add(rotation);
 		this.setCycleCount(Animation.INDEFINITE);
-		this.setCycleDuration(Duration.millis(CYCLE_DURATION));
+		this.setCycleDuration(Duration.millis(Globals.getCurrentUser().getGameSettings().getRotationCycleDuration()));
 		this.setInterpolator(Interpolator.LINEAR);
 	}
 
