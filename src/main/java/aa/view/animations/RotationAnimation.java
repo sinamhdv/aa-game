@@ -9,7 +9,7 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 public class RotationAnimation extends Transition {
-	private static final int CYCLE_DURATION = 2500;
+	private static final int CYCLE_DURATION = 4000;
 
 	private Rotate rotation;
 

@@ -85,8 +85,11 @@ public class GameScreen extends Application {
 	}
 
 	private void loadInitialArrangement() {
-		needles.add(new Needle());
-		for (Needle needle : needles) rotatingObjects.getChildren().add(needle.getGroup());
+		double[] arrangementAngles = GameConstants.ARRANGEMENT1;
+		for (double angle : arrangementAngles)
+			needles.add(new Needle(angle, centralDisk));
+		for (Needle needle : needles)
+			rotatingObjects.getChildren().add(needle.getGroup());
 	}
 
 	private void shootKeyHandler(int playerIndex) {
