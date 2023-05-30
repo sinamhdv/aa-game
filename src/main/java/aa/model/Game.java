@@ -11,6 +11,7 @@ public class Game {
 	private int[] remainingBallsCount;
 	private int windAngle = 0;
 	private int score = 0;
+	private int rotationDirection = 1;
 
 	public Game(int playersCount) {
 		this.playersCount = playersCount;
@@ -65,5 +66,13 @@ public class Game {
 
 	public void setScore(int score) {
 		this.score = score;
-	}	
+	}
+
+	public int getRotationDirection() {
+		return rotationDirection;
+	}
+
+	public void setRotationDirection(int rotationDirection) {
+		this.rotationDirection = rotationDirection;
+	}
 }

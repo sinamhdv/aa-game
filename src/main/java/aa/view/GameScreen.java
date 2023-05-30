@@ -94,6 +94,7 @@ public class GameScreen extends Application {
 
 	private void shootKeyHandler(int playerIndex) {
 		if (game.getPlayersCount() == 1 && playerIndex > 0) return;
+		game.setRotationDirection(-game.getRotationDirection());
 	}
 
 	private void freezeKeyHandler() {

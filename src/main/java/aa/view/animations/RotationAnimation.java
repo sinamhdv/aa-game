@@ -1,5 +1,6 @@
 package aa.view.animations;
 
+import aa.model.Globals;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
@@ -23,8 +24,14 @@ public class RotationAnimation extends Transition {
 		this.setInterpolator(Interpolator.LINEAR);
 	}
 
+	private double previousFrac = 0;
 	@Override
 	protected void interpolate(double frac) {
-		rotation.setAngle(frac * 360);
+		double angle = rotation.getAngle();
+		angle += (frac - previousFrac) * 360 * Globals.getCurrentGame().getRotationDirection();
+		if (angle >= 360) angle -= 360;
+		if (angle < 0) angle += 360;
+		rotation.setAngle(angle);
+		previousFrac = frac;
 	}
 }
