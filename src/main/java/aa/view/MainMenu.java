@@ -1,5 +1,6 @@
 package aa.view;
 
+import aa.controller.MainMenuController;
 import aa.model.Globals;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -15,7 +16,13 @@ public class MainMenu extends Application {
 	@FXML
 	private Label errorText;
 
-	public void newGameButtonClicked(MouseEvent mouseEvent) throws Exception {
+	public void singlePlayerButtonClicked(MouseEvent mouseEvent) throws Exception {
+		MainMenuController.startGame(1);
+		new GameScreen().start(LoginMenu.getStage());
+	}
+
+	public void doublePlayerButtonClicked(MouseEvent mouseEvent) throws Exception {
+		MainMenuController.startGame(2);
 		new GameScreen().start(LoginMenu.getStage());
 	}
 

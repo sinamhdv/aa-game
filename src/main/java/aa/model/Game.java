@@ -12,9 +12,10 @@ public class Game {
 	private int windAngle = 0;
 	private int score = 0;
 
-	public Game(int playersCount, int[] initialBallsCount) {
+	public Game(int playersCount) {
 		this.playersCount = playersCount;
-		this.initialBallsCount = initialBallsCount;
+		this.initialBallsCount = new int[] {Globals.getCurrentUser().getGameSettings().getBallsCount(), 0};
+		if (playersCount > 1) this.initialBallsCount[1] = this.initialBallsCount[0];
 		this.remainingBallsCount = initialBallsCount.clone();
 	}
 
