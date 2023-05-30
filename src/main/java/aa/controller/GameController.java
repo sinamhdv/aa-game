@@ -25,13 +25,12 @@ public class GameController {
 			// random turn reversal
 			new Timeline(new KeyFrame(Duration.seconds(new Random().nextDouble(
 				GameConstants.MIN_TURN_REVERSAL_INTERVALS, GameConstants.MAX_TURN_REVERSAL_INTERVALS
-			)), event -> {
-				reverseRotation();
-			})).play();
+			)), event -> { reverseRotation(); })).play();
 			game.setLastStartedPhase(2);
 		}
-		if (game.getPhase() >= 3) {
-			// TODO: phase 3 events
+		if (game.getPhase() >= 3 && game.getLastStartedPhase() == 2) {
+			startBallsInvisibilityTimer();
+			game.setLastStartedPhase(3);
 		}
 		if (game.getPhase() >= 4) {
 			// TODO: phase 4 events
@@ -45,6 +44,15 @@ public class GameController {
 		)), event -> {
 				reverseRotation();
 		})).play();
+	}
+
+	private void startBallsInvisibilityTimer() {
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
+			game.setVisibilityState(!game.getVisibilityState());
+			gameScreen.updateNeedlesVisibility();
+		}));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
 	}
 
 	public void checkBallCollisions() {

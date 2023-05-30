@@ -172,6 +172,11 @@ public class GameScreen extends Application {
 		controller.checkBallCollisions();
 	}
 
+	public void updateNeedlesVisibility() {
+		for (Needle needle : needles)
+			needle.getGroup().setVisible(game.getVisibilityState());
+	}
+
 	private void shootKeyHandler(int playerIndex) {
 		if (game.getPlayersCount() == 1 && playerIndex > 0) return;
 		if (game.getRemainingBallsCount()[playerIndex] == 0) return;

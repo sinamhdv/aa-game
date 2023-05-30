@@ -14,6 +14,7 @@ public class Game {
 	private int rotationDirection = 1;
 	private int lastStartedPhase = 1;
 	private int[] shootX = {GameConstants.getScreenWidth() / 2, GameConstants.getScreenWidth() / 2};
+	private boolean visibilityState = true;
 
 	public Game(int playersCount) {
 		this.playersCount = playersCount;
@@ -97,5 +98,13 @@ public class Game {
 
 	public int[] getShootX() {
 		return shootX;
+	}
+
+	public void setVisibilityState(boolean visibilityState) {
+		this.visibilityState = visibilityState;
+	}
+
+	public boolean getVisibilityState() {
+		return visibilityState;
 	}
 }
