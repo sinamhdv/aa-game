@@ -21,11 +21,11 @@ public class GameController {
 	public void handlePhases() {
 		if (game.getPhase() >= 2 && game.getLastStartedPhase() == 1) {
 			// random turn reversal
-			new Timeline(new KeyFrame(Duration.millis(new Random().nextDouble(
+			new Timeline(new KeyFrame(Duration.seconds(new Random().nextDouble(
 				GameConstants.MIN_TURN_REVERSAL_INTERVALS, GameConstants.MAX_TURN_REVERSAL_INTERVALS
 			)), event -> {
 				reverseRotation();
-			}));
+			})).play();
 			game.setLastStartedPhase(2);
 		}
 		if (game.getPhase() >= 3) {
@@ -38,10 +38,10 @@ public class GameController {
 
 	private void reverseRotation() {
 		game.setRotationDirection(-game.getRotationDirection());
-		new Timeline(new KeyFrame(Duration.millis(new Random().nextDouble(
+		new Timeline(new KeyFrame(Duration.seconds(new Random().nextDouble(
 				GameConstants.MIN_TURN_REVERSAL_INTERVALS, GameConstants.MAX_TURN_REVERSAL_INTERVALS
 		)), event -> {
 				reverseRotation();
-		}));
+		})).play();
 	}
 }

@@ -57,6 +57,6 @@ public class ShootingAnimation extends Transition {
 		gameScreen.getPane().getChildren().remove(ball);
 		gameScreen.addNeedle(Miscellaneous.getNeedleAngle(ball.getCenterX(), ball.getCenterY(),
 			gameScreen.getCentralDisk().getCenterX(),
-			gameScreen.getCentralDisk().getCenterY()));
+			gameScreen.getCentralDisk().getCenterY()) - gameScreen.getRotationAnimation().getRotation().getAngle());
 	}
 }

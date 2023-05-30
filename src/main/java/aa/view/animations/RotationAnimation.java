@@ -14,6 +14,10 @@ public class RotationAnimation extends Transition {
 
 	private Rotate rotation;
 
+	public Rotate getRotation() {
+		return rotation;
+	}
+
 	public RotationAnimation(Group object, Circle pivot) {
 		this.rotation = new Rotate();
 		this.rotation.pivotXProperty().bind(pivot.centerXProperty());

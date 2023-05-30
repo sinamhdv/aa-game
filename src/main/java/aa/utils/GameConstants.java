@@ -16,7 +16,8 @@ public class GameConstants {
 	public static final int MIN_BALL_RADIUS = 20;
 	public static final int MAX_BALL_RADIUS = 22;
 
-	public static final double[] ARRANGEMENT1 = {0, 72, 144, 216, 288};
+	// public static final double[] ARRANGEMENT1 = {0, 72, 144, 216, 288};
+	public static final double[] ARRANGEMENT1 = {0};
 
 	public static int getScreenHeight() {
 		return (int)(Screen.getPrimary().getBounds().getHeight() + 0.5);

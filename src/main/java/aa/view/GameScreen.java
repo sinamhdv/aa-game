@@ -46,12 +46,16 @@ public class GameScreen extends Application {
 	private User user = Globals.getCurrentUser();
 	private GameSettings settings = user.getGameSettings();
 	private GameController controller;
+	private RotationAnimation rotationAnimation;
 
 	public Pane getPane() {
 		return pane;
 	}
 	public Circle getCentralDisk() {
 		return centralDisk;
+	}
+	public RotationAnimation getRotationAnimation() {
+		return rotationAnimation;
 	}
 
 	@Override
@@ -79,7 +83,8 @@ public class GameScreen extends Application {
 		centralDisk = new Circle(GameConstants.getScreenWidth() / 2, GameConstants.getScreenHeight() / 2, 100);
 		rotatingObjects = new Group(centralDisk);
 		pane.getChildren().add(rotatingObjects);
-		new RotationAnimation(rotatingObjects, centralDisk).play();
+		rotationAnimation = new RotationAnimation(rotatingObjects, centralDisk);
+		rotationAnimation.play();
 	}
 
 	private void addKeyListeners() {
@@ -111,7 +116,7 @@ public class GameScreen extends Application {
 	private void shootKeyHandler(int playerIndex) {
 		if (game.getPlayersCount() == 1 && playerIndex > 0) return;
 		new ShootingAnimation(playerIndex, game.getWindAngle()).play();
-		// controller.handlePhases();	// TODO: uncomment this
+		controller.handlePhases();
 	}
 
 	private void freezeKeyHandler() {
