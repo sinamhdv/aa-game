@@ -44,10 +44,19 @@ public class GameScreen extends Application {
 	private Game game = Globals.getCurrentGame();
 	private User user = Globals.getCurrentUser();
 	private GameSettings settings = user.getGameSettings();
-	private GameController controller = new GameController(this);
+	private GameController controller;
+
+	public Pane getPane() {
+		return pane;
+	}
+	public Circle getCentralDisk() {
+		return centralDisk;
+	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		Globals.setCurrentGameScreen(this);
+		controller = new GameController();
 		pane = FXMLLoader.load(GameScreen.class.getResource("/fxml/GameScreen.fxml"));
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
@@ -96,7 +105,7 @@ public class GameScreen extends Application {
 
 	private void shootKeyHandler(int playerIndex) {
 		if (game.getPlayersCount() == 1 && playerIndex > 0) return;
-		
+
 		// controller.handlePhases();	// TODO: uncomment this
 	}
 

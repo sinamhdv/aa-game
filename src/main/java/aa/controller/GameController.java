@@ -11,11 +11,11 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 public class GameController {
-	private GameScreen gameScreen;
 	private Game game = Globals.getCurrentGame();
+	private GameScreen gameScreen = Globals.getCurrentGameScreen();
 
-	public GameController(GameScreen gameScreen) {
-		this.gameScreen = gameScreen;
+	public GameController() {
+		Globals.setCurrentGameController(this);
 	}
 
 	public void handlePhases() {

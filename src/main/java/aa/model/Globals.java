@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import aa.controller.GameController;
 import aa.utils.DatabaseManager;
+import aa.view.GameScreen;
 
 public class Globals {
 	private static ArrayList<User> allUsers;
 	private static User currentUser;
 	private static Game currentGame;
+	private static GameScreen currentGameScreen;
+	private static GameController currentGameController;
 
 	public static User getUserByName(String username) {
 		for (User user : allUsers)
@@ -60,5 +64,19 @@ public class Globals {
 	}
 	public static void setCurrentGame(Game currentGame) {
 		Globals.currentGame = currentGame;
+	}
+
+	public static GameScreen getCurrentGameScreen() {
+		return currentGameScreen;
+	}
+	public static void setCurrentGameScreen(GameScreen currentGameScreen) {
+		Globals.currentGameScreen = currentGameScreen;
+	}
+	
+	public static GameController getCurrentGameController() {
+		return currentGameController;
+	}
+	public static void setCurrentGameController(GameController currentGameController) {
+		Globals.currentGameController = currentGameController;
 	}
 }
