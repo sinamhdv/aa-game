@@ -21,6 +21,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -50,6 +51,7 @@ public class GameScreen extends Application {
 	private Group rotatingObjects;
 	private ArrayList<Needle> needles = new ArrayList<>();
 	private Circle[][] stationaryBalls = new Circle[2][3];
+	private Label[][] remainingBallsLabels = new Label[2][3];
 
 	public Pane getPane() {
 		return pane;
@@ -94,8 +96,16 @@ public class GameScreen extends Application {
 		for (int playerIndex = 0; playerIndex < game.getPlayersCount(); playerIndex++) {
 			for (int i = 0; i < 3; i++) {
 				stationaryBalls[playerIndex][i] = new Circle(game.getShootX()[playerIndex],
-					0, GameConstants.MIN_BALL_RADIUS);
+					GameConstants.getScreenHeight() / 2 +
+					(GameConstants.SHOOT_STARTING_DISTANCE + i * (2 * GameConstants.MIN_BALL_RADIUS + 10)) *
+					(playerIndex == 0 ? 1 : -1), GameConstants.MIN_BALL_RADIUS);
 				pane.getChildren().add(stationaryBalls[playerIndex][i]);
+				remainingBallsLabels[playerIndex][i] = new Label("00");
+				remainingBallsLabels[playerIndex][i].setTextFill(Color.WHITE);
+				remainingBallsLabels[playerIndex][i].setStyle("-fx-font-size: 20px");
+				remainingBallsLabels[playerIndex][i].setLayoutY(
+					stationaryBalls[playerIndex][i].getLayoutBounds().getMinY() + 7);
+				pane.getChildren().add(remainingBallsLabels[playerIndex][i]);
 			}
 		}
 	}
@@ -109,11 +119,14 @@ public class GameScreen extends Application {
 		for (int playerIndex = 0; playerIndex < game.getPlayersCount(); playerIndex++) {
 			for (int i = 0; i < 3; i++) {
 				stationaryBalls[playerIndex][i].setCenterX(game.getShootX()[playerIndex]);
-				stationaryBalls[playerIndex][i].setCenterY(GameConstants.getScreenHeight() / 2 +
-					(GameConstants.SHOOT_STARTING_DISTANCE + i * (2 * GameConstants.MIN_BALL_RADIUS + 10)) *
-					(playerIndex == 0 ? 1 : -1));
-				if (i >= game.getRemainingBallsCount()[playerIndex])
+				remainingBallsLabels[playerIndex][i].setLayoutX(
+					stationaryBalls[playerIndex][i].getLayoutBounds().getMinX() + 7);
+				remainingBallsLabels[playerIndex][i].setText(String.format("%2s", 
+					Integer.toString(game.getRemainingBallsCount()[playerIndex] - i)).replace(' ', '0'));
+				if (i >= game.getRemainingBallsCount()[playerIndex]) {
 					stationaryBalls[playerIndex][i].setVisible(false);
+					remainingBallsLabels[playerIndex][i].setVisible(false);
+				}
 			}
 		}
 	}
