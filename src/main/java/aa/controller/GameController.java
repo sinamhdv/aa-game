@@ -8,6 +8,8 @@ import aa.utils.GameConstants;
 import aa.view.GameScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.control.Label;
+import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 public class GameController {
@@ -43,5 +45,20 @@ public class GameController {
 		)), event -> {
 				reverseRotation();
 		})).play();
+	}
+
+	public void checkBallCollisions() {
+		for (int i = 0; i < gameScreen.getNeedles().size(); i++) {
+			for (int j = i + 1; j < gameScreen.getNeedles().size(); j++) {
+				Shape intersect = Shape.intersect(gameScreen.getNeedles().get(i).getBall(),
+					gameScreen.getNeedles().get(j).getBall());
+				if (intersect.getBoundsInLocal().getWidth() > -0.5)
+					loseGame();
+			}
+		}
+	}
+
+	private void loseGame() {
+		gameScreen.getPane().getChildren().add(new Label("hahahahahaha"));
 	}
 }

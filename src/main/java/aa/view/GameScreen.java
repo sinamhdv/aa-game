@@ -59,6 +59,9 @@ public class GameScreen extends Application {
 	public RotationAnimation getRotationAnimation() {
 		return rotationAnimation;
 	}
+	public ArrayList<Needle> getNeedles() {
+		return needles;
+	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -129,6 +132,7 @@ public class GameScreen extends Application {
 		Needle needle = new Needle(angle, centralDisk);
 		needles.add(needle);
 		rotatingObjects.getChildren().add(needle.getGroup());
+		controller.checkBallCollisions();
 	}
 
 	private void shootKeyHandler(int playerIndex) {
@@ -137,7 +141,7 @@ public class GameScreen extends Application {
 		new ShootingAnimation(playerIndex, game.getWindAngle()).play();
 		game.setScore(game.getScore() + game.getPhase());
 		game.getRemainingBallsCount()[playerIndex]--;
-		game.setFreezeBarPercent(Math.max(100, game.getFreezeBarPercent() + GameConstants.FREEZE_BAR_BOOST));
+		game.setFreezeBarPercent(Math.min(100, game.getFreezeBarPercent() + GameConstants.FREEZE_BAR_BOOST));
 		updateHUD();
 		controller.handlePhases();
 	}

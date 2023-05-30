@@ -9,8 +9,18 @@ import javafx.scene.transform.Rotate;
 public class Needle {
 
 	private Group group;
+	private final double angle;
+
+	public double getAngle() {
+		return angle;
+	}
+
+	public Circle getBall() {
+		return (Circle) group.getChildren().get(0);
+	}
 
 	public Needle(double angle, Circle pivot) {
+		this.angle = angle;
 		Circle ball = new Circle(GameConstants.getScreenWidth() / 2,
 			GameConstants.getScreenHeight() / 2 + GameConstants.NEEDLE_BAR_LENGTH,
 			GameConstants.MIN_BALL_RADIUS);

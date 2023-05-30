@@ -45,7 +45,7 @@ public class ShootingAnimation extends Transition {
 	}
 
 	private void checkHittingScreenBorders() {
-
+		// TODO
 	}
 
 	private void checkReachingTerminalDistance() {
