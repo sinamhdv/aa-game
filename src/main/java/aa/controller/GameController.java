@@ -68,8 +68,9 @@ public class GameController {
 		}
 	}
 
-	private void loseGame() {
-		gameScreen.getPane().getChildren().add(new Label("hahahahahaha"));
+	private static int _losts = 0;
+	public void loseGame() {
+		gameScreen.getPane().getChildren().add(new Label("hahahaha: " + (++_losts)));
 	}
 
 	public void startGameTimer() {

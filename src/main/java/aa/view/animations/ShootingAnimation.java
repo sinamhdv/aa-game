@@ -7,6 +7,7 @@ import aa.view.GameScreen;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -45,7 +46,13 @@ public class ShootingAnimation extends Transition {
 	}
 
 	private void checkHittingScreenBorders() {
-		// TODO
+		if (ball.getCenterX() < GameConstants.MIN_BALL_RADIUS
+			|| ball.getCenterX() > GameConstants.getScreenWidth() - GameConstants.MIN_BALL_RADIUS ||
+			ball.getCenterY() < GameConstants.MIN_BALL_RADIUS) {
+			this.stop();
+			ball.setFill(Color.RED);
+			Globals.getCurrentGameController().loseGame();
+		}
 	}
 
 	private void checkReachingTerminalDistance() {
