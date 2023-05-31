@@ -1,5 +1,6 @@
 package aa.utils;
 
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
 public class GameConstants {
@@ -19,6 +20,8 @@ public class GameConstants {
 	public static final int FREEZE_BAR_BOOST = 25;
 
 	public static final int LEFT_RIGHT_MOVEMENT_STEP = 10;
+
+	public static final Color PLAYER2_COLOR = Color.DIMGRAY;
 
 	// public static final double[] ARRANGEMENT1 = {0, 72, 144, 216, 288};
 	public static final double[] ARRANGEMENT1 = {0};

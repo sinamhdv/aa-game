@@ -103,6 +103,7 @@ public class GameScreen extends Application {
 					GameConstants.getScreenHeight() / 2 +
 					(GameConstants.SHOOT_STARTING_DISTANCE + i * (2 * GameConstants.MIN_BALL_RADIUS + 10)) *
 					(playerIndex == 0 ? 1 : -1), GameConstants.MIN_BALL_RADIUS);
+				if (playerIndex == 1) stationaryBalls[playerIndex][i].setFill(GameConstants.PLAYER2_COLOR);
 				pane.getChildren().add(stationaryBalls[playerIndex][i]);
 				remainingBallsLabels[playerIndex][i] = new Label("00");
 				remainingBallsLabels[playerIndex][i].setTextFill(Color.WHITE);
@@ -187,11 +188,12 @@ public class GameScreen extends Application {
 	private void loadInitialArrangement() {
 		double[] arrangementAngles = GameConstants.ARRANGEMENT1;
 		for (double angle : arrangementAngles)
-			addNeedle(angle);
+			addNeedle(angle, 0);
 	}
 
-	public void addNeedle(double angle) {
+	public void addNeedle(double angle, int playerIndex) {
 		Needle needle = new Needle(angle, centralDisk);
+		if (playerIndex == 1) needle.setColor(GameConstants.PLAYER2_COLOR);
 		needles.add(needle);
 		rotatingObjects.getChildren().add(needle.getGroup());
 		controller.checkBallCollisions();

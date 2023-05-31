@@ -32,6 +32,7 @@ public class ShootingAnimation extends Transition {
 		ball = new Circle(Globals.getCurrentGame().getShootX()[playerIndex],
 			GameConstants.getScreenHeight() / 2 + (playerIndex == 0 ? 1 : -1) * GameConstants.SHOOT_STARTING_DISTANCE,
 			GameConstants.MIN_BALL_RADIUS);
+		if (playerIndex == 1) ball.setFill(GameConstants.PLAYER2_COLOR);
 		this.gameScreen.getPane().getChildren().add(ball);
 	}
 
@@ -67,6 +68,7 @@ public class ShootingAnimation extends Transition {
 		gameScreen.getPane().getChildren().remove(ball);
 		gameScreen.addNeedle(Miscellaneous.getNeedleAngle(ball.getCenterX(), ball.getCenterY(),
 			gameScreen.getCentralDisk().getCenterX(),
-			gameScreen.getCentralDisk().getCenterY()) - gameScreen.getRotationAnimation().getRotation().getAngle());
+			gameScreen.getCentralDisk().getCenterY()) - gameScreen.getRotationAnimation().getRotation().getAngle(),
+			playerIndex);
 	}
 }
