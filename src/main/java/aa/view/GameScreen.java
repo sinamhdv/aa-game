@@ -160,6 +160,14 @@ public class GameScreen extends Application {
 				freezeKeyHandler();
 			else if (key == KeyCode.ESCAPE)
 				pauseKeyHandler();
+			else if (key == KeyCode.RIGHT)
+				moveStationaryBalls(0, 1);
+			else if (key == KeyCode.LEFT)
+				moveStationaryBalls(0, -1);
+			else if (key == KeyCode.D)
+				moveStationaryBalls(1, 1);
+			else if (key == KeyCode.A)
+				moveStationaryBalls(1, -1);
 		});
 	}
 
@@ -200,5 +208,13 @@ public class GameScreen extends Application {
 
 	private void pauseKeyHandler() {
 		System.out.println("pause");
+	}
+
+	private void moveStationaryBalls(int playerIndex, int direction) {
+		if (game.getPhase() < 4) return;
+		int newX = game.getShootX()[playerIndex] + direction * GameConstants.LEFT_RIGHT_MOVEMENT_STEP;
+		if (newX < 50 || newX > GameConstants.getScreenWidth() - 50) return;
+		game.getShootX()[playerIndex] = newX;
+		updateHUD();
 	}
 }
