@@ -142,6 +142,14 @@ public class GameController {
 		System.out.println("pause");
 	}
 
+	public void resumeGame() {
+		System.out.println("resume");
+	}
+
+	public void saveGame() {
+		System.out.println("save");
+	}
+
 	public void moveStationaryBalls(int playerIndex, int direction) {
 		if (game.getPhase() < 4) return;
 		int newX = game.getShootX()[playerIndex] + direction * GameConstants.LEFT_RIGHT_MOVEMENT_STEP;

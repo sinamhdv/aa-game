@@ -3,6 +3,7 @@ package aa.view;
 import java.util.ArrayList;
 
 import aa.controller.GameController;
+import aa.controller.MainMenuController;
 import aa.model.Game;
 import aa.model.GameSettings;
 import aa.model.Globals;
@@ -15,11 +16,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -39,6 +44,14 @@ public class GameScreen extends Application {
 	private Label player2RemainingBallsText;
 	@FXML
 	private Label scoreText;
+
+	// Pause Menu
+	@FXML
+	private VBox pauseMenu;
+	@FXML
+	private CheckBox soundCheckBox;
+	@FXML
+	private ComboBox<String> musicComboBox;
 
 	private Game game = Globals.getCurrentGame();
 	private User user = Globals.getCurrentUser();
@@ -87,9 +100,20 @@ public class GameScreen extends Application {
 		addKeyListeners();
 		setupCentralDisk();
 		loadInitialArrangement();
+		setupPauseMenu();
 		setupHUD();
 		updateHUD();
 		controller.startGameTimer();
+	}
+
+	private void setupPauseMenu() {
+		musicComboBox.getItems().addAll("track #1", "track #2", "track #3");
+		soundCheckBox.selectedProperty().addListener((observable, oldState, newState) -> {
+			settings.setHasSound(newState.booleanValue());
+		});
+		musicComboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+			game.setMusicTrackIndex(newValue.intValue());
+		});
 	}
 
 	private void setupHUD() {
@@ -204,5 +228,22 @@ public class GameScreen extends Application {
 			needle.getGroup().setVisible(game.getVisibilityState());
 			needle.getBall().setRadius(game.getCurrentBallRadius());
 		}
-	}	
+	}
+
+	public void resumeButtonHandler(MouseEvent mouseEvent) throws Exception {
+		controller.resumeGame();
+	}
+
+	public void saveButtonHandler(MouseEvent mouseEvent) throws Exception {
+		controller.saveGame();
+	}
+
+	public void restartButtonHandler(MouseEvent mouseEvent) throws Exception {
+		MainMenuController.startGame(game.getPlayersCount());
+		new GameScreen().start(LoginMenu.getStage());
+	}
+
+	public void exitButtonHandler(MouseEvent mouseEvent) throws Exception {
+		new MainMenu().start(LoginMenu.getStage());
+	}
 }

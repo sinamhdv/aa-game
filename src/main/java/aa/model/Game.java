@@ -17,6 +17,7 @@ public class Game {
 	private boolean visibilityState = true;
 	private int currentBallRadius = GameConstants.MIN_BALL_RADIUS;
 	private int freezeValue = 1;
+	private int musicTrackIndex = 0;
 
 	public Game(int playersCount) {
 		this.playersCount = playersCount;
@@ -132,5 +133,13 @@ public class Game {
 
 	public boolean isFreezed() {
 		return freezeValue > 1;
+	}
+
+	public int getMusicTrackIndex() {
+		return musicTrackIndex;
+	}
+
+	public void setMusicTrackIndex(int musicTrackIndex) {
+		this.musicTrackIndex = musicTrackIndex;
 	}
 }
