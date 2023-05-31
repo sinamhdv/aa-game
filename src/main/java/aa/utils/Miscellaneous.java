@@ -12,11 +12,11 @@ public class Miscellaneous {
 		double theta = Math.toDegrees(Math.atan(Math.abs(deltaX / deltaY)));
 		double result;
 		if (deltaX < 0 && deltaY > 0) result = theta;
-		else if (deltaX < 0 && deltaY < 0) result = 180 - theta;
-		else if (deltaX > 0 && deltaY < 0) result = 180 + theta;
+		else if (deltaX < 0 && deltaY <= 0) result = 180 - theta;
+		else if (deltaX >= 0 && deltaY < 0) result = 180 + theta;
 		else result = 360 - theta;
 		if (result < 0) result = 0;
-		if (result > 360) result = 0;
+		if (result >= 360) result = 0;
 		return result;
 	}
 }

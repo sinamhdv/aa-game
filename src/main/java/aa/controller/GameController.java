@@ -67,8 +67,8 @@ public class GameController {
 				Shape intersect = Shape.intersect(gameScreen.getNeedles().get(i).getBall(),
 					gameScreen.getNeedles().get(j).getBall());
 				if (intersect.getBoundsInLocal().getWidth() > -0.5) {
-					gameScreen.getNeedles().get(i).getBall().setFill(Color.RED);
-					gameScreen.getNeedles().get(j).getBall().setFill(Color.RED);
+					gameScreen.getNeedles().get(i).setColor(Color.RED);
+					gameScreen.getNeedles().get(j).setColor(Color.RED);
 					loseGame();
 					return;
 				}
@@ -76,9 +76,8 @@ public class GameController {
 		}
 	}
 
-	private static int _losts = 0;
 	public void loseGame() {
-		gameScreen.getPane().getChildren().add(new Label("hahahaha: " + (++_losts)));
+		gameScreen.getPane().getChildren().add(new Label("hahahaha"));
 	}
 
 	public void startGameTimer() {
