@@ -16,6 +16,7 @@ public class Game {
 	private int[] shootX = {GameConstants.getScreenWidth() / 2, GameConstants.getScreenWidth() / 2};
 	private boolean visibilityState = true;
 	private int currentBallRadius = GameConstants.MIN_BALL_RADIUS;
+	private int freezeValue = 1;
 
 	public Game(int playersCount) {
 		this.playersCount = playersCount;
@@ -115,5 +116,21 @@ public class Game {
 
 	public int getCurrentBallRadius() {
 		return currentBallRadius;
+	}
+
+	public int getFreezeValue() {
+		return freezeValue;
+	}
+
+	public void startFreeze() {
+		freezeValue = 2;
+	}
+
+	public void endFreeze() {
+		freezeValue = 1;
+	}
+
+	public boolean isFreezed() {
+		return freezeValue > 1;
 	}
 }

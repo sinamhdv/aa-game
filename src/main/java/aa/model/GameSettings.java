@@ -66,10 +66,10 @@ public class GameSettings {
 		return controls;
 	}
 
-	public int getRotationCycleDuration() {
-		if (difficulty == 0) return 6000;
-		else if (difficulty == 1) return 3000;
-		return 2000;
+	public double getRotationSpeed() {
+		if (difficulty == 0) return 0.4;
+		else if (difficulty == 1) return 0.5;
+		return 0.6;
 	}
 
 	public int getWindChangingIntervals() {

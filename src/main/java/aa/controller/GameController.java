@@ -6,8 +6,11 @@ import aa.model.Game;
 import aa.model.Globals;
 import aa.utils.GameConstants;
 import aa.view.GameScreen;
+import aa.view.animations.FreezeBarAnimation;
+import aa.view.animations.ShootingAnimation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
@@ -106,5 +109,40 @@ public class GameController {
 			}));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
+	}
+
+	public void shootKeyHandler(int playerIndex) {
+		if (game.getPlayersCount() == 1 && playerIndex > 0) return;
+		if (game.getRemainingBallsCount()[playerIndex] == 0) return;
+		new ShootingAnimation(playerIndex, game.getWindAngle()).play();
+		game.setScore(game.getScore() + game.getPhase());
+		game.getRemainingBallsCount()[playerIndex]--;
+		if (!game.isFreezed())
+			game.setFreezeBarPercent(Math.min(100, game.getFreezeBarPercent() + GameConstants.FREEZE_BAR_BOOST));
+		gameScreen.updateHUD();
+		handlePhases();
+	}
+
+	public void freezeKeyHandler() {
+		if (game.getFreezeBarPercent() < 100) return;
+		game.startFreeze();
+		game.setFreezeBarPercent(0);
+		new FreezeBarAnimation().play();
+	}
+
+	public void endFreeze(ActionEvent event) {
+		game.endFreeze();
+	}
+
+	public void pauseKeyHandler() {
+		System.out.println("pause");
+	}
+
+	public void moveStationaryBalls(int playerIndex, int direction) {
+		if (game.getPhase() < 4) return;
+		int newX = game.getShootX()[playerIndex] + direction * GameConstants.LEFT_RIGHT_MOVEMENT_STEP;
+		if (newX < 50 || newX > GameConstants.getScreenWidth() - 50) return;
+		game.getShootX()[playerIndex] = newX;
+		gameScreen.updateHUD();
 	}
 }

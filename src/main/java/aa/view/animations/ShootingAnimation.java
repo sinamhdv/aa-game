@@ -37,8 +37,10 @@ public class ShootingAnimation extends Transition {
 
 	@Override
 	protected void interpolate(double frac) {
-		double deltaX = SPEED * Math.sin(Math.toRadians(angle));
-		double deltaY = SPEED * Math.cos(Math.toRadians(angle)) * (playerIndex == 0 ? -1 : 1);
+		double deltaX = SPEED * Math.sin(Math.toRadians(angle))
+			/ Globals.getCurrentGame().getFreezeValue();
+		double deltaY = SPEED * Math.cos(Math.toRadians(angle)) * (playerIndex == 0 ? -1 : 1)
+			/ Globals.getCurrentGame().getFreezeValue();
 		ball.setCenterX(ball.getCenterX() + deltaX);
 		ball.setCenterY(ball.getCenterY() + deltaY);
 		checkHittingScreenBorders();

@@ -10,6 +10,8 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 public class RotationAnimation extends Transition {
+	private static final int CYCLE_DURATION = 10000;
+
 	private Rotate rotation;
 
 	public Rotate getRotation() {
@@ -22,18 +24,18 @@ public class RotationAnimation extends Transition {
 		this.rotation.pivotYProperty().bind(pivot.centerYProperty());
 		object.getTransforms().add(rotation);
 		this.setCycleCount(Animation.INDEFINITE);
-		this.setCycleDuration(Duration.millis(Globals.getCurrentUser().getGameSettings().getRotationCycleDuration()));
+		this.setCycleDuration(Duration.millis(CYCLE_DURATION));
 		this.setInterpolator(Interpolator.LINEAR);
 	}
 
-	private double previousFrac = 0;
 	@Override
 	protected void interpolate(double frac) {
 		double angle = rotation.getAngle();
-		angle += (frac - previousFrac) * 360 * Globals.getCurrentGame().getRotationDirection();
+		angle += Globals.getCurrentUser().getGameSettings().getRotationSpeed()
+			* Globals.getCurrentGame().getRotationDirection()
+			/ Globals.getCurrentGame().getFreezeValue();
 		if (angle >= 360) angle -= 360;
 		if (angle < 0) angle += 360;
 		rotation.setAngle(angle);
-		previousFrac = frac;
 	}
 }

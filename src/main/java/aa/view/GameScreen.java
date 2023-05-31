@@ -10,7 +10,6 @@ import aa.model.User;
 import aa.model.gameobjects.Needle;
 import aa.utils.GameConstants;
 import aa.view.animations.RotationAnimation;
-import aa.view.animations.ShootingAnimation;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,6 +64,9 @@ public class GameScreen extends Application {
 	public ArrayList<Needle> getNeedles() {
 		return needles;
 	}
+	public ProgressBar getFreezeBar() {
+		return freezeBar;
+	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -111,10 +113,10 @@ public class GameScreen extends Application {
 		}
 	}
 
-	private void updateHUD() {
+	public void updateHUD() {
 		player1RemainingBallsText.setText(Integer.toString(game.getRemainingBallsCount()[0]));
 		player2RemainingBallsText.setText(Integer.toString(game.getRemainingBallsCount()[1]));
-		freezeBar.setProgress(game.getFreezeBarPercent() / 100.0);
+		if (!game.isFreezed()) freezeBar.setProgress(game.getFreezeBarPercent() / 100.0);
 		windText.setText("Wind: " + game.getWindAngle());
 		scoreText.setText(String.format("%02d", game.getScore()));
 		for (int playerIndex = 0; playerIndex < game.getPlayersCount(); playerIndex++) {
@@ -153,21 +155,21 @@ public class GameScreen extends Application {
 		pane.setOnKeyPressed(event -> {
 			KeyCode key = event.getCode();
 			if (key == settings.getControls()[0])
-				shootKeyHandler(0);
+				controller.shootKeyHandler(0);
 			else if (key == settings.getControls()[1])
-				shootKeyHandler(1);
+				controller.shootKeyHandler(1);
 			else if (key == settings.getControls()[2])
-				freezeKeyHandler();
+				controller.freezeKeyHandler();
 			else if (key == KeyCode.ESCAPE)
-				pauseKeyHandler();
+				controller.pauseKeyHandler();
 			else if (key == KeyCode.RIGHT)
-				moveStationaryBalls(0, 1);
+				controller.moveStationaryBalls(0, 1);
 			else if (key == KeyCode.LEFT)
-				moveStationaryBalls(0, -1);
+				controller.moveStationaryBalls(0, -1);
 			else if (key == KeyCode.D)
-				moveStationaryBalls(1, 1);
+				controller.moveStationaryBalls(1, 1);
 			else if (key == KeyCode.A)
-				moveStationaryBalls(1, -1);
+				controller.moveStationaryBalls(1, -1);
 		});
 	}
 
@@ -189,32 +191,5 @@ public class GameScreen extends Application {
 			needle.getGroup().setVisible(game.getVisibilityState());
 			needle.getBall().setRadius(game.getCurrentBallRadius());
 		}
-	}
-
-	private void shootKeyHandler(int playerIndex) {
-		if (game.getPlayersCount() == 1 && playerIndex > 0) return;
-		if (game.getRemainingBallsCount()[playerIndex] == 0) return;
-		new ShootingAnimation(playerIndex, game.getWindAngle()).play();
-		game.setScore(game.getScore() + game.getPhase());
-		game.getRemainingBallsCount()[playerIndex]--;
-		game.setFreezeBarPercent(Math.min(100, game.getFreezeBarPercent() + GameConstants.FREEZE_BAR_BOOST));
-		updateHUD();
-		controller.handlePhases();
-	}
-
-	private void freezeKeyHandler() {
-		System.out.println("freeze");
-	}
-
-	private void pauseKeyHandler() {
-		System.out.println("pause");
-	}
-
-	private void moveStationaryBalls(int playerIndex, int direction) {
-		if (game.getPhase() < 4) return;
-		int newX = game.getShootX()[playerIndex] + direction * GameConstants.LEFT_RIGHT_MOVEMENT_STEP;
-		if (newX < 50 || newX > GameConstants.getScreenWidth() - 50) return;
-		game.getShootX()[playerIndex] = newX;
-		updateHUD();
-	}
+	}	
 }
