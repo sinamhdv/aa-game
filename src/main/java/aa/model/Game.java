@@ -9,12 +9,13 @@ public class Game {
 	private int remainingSeconds = GameConstants.GAME_TIMEOUT;
 	private int freezeBarPercent = 0;
 	private int[] remainingBallsCount;
-	private int windAngle = 20;
+	private int windAngle = 0;
 	private int score = 0;
 	private int rotationDirection = 1;
 	private transient int lastStartedPhase = 1;
 	private int[] shootX = {GameConstants.getScreenWidth() / 2, GameConstants.getScreenWidth() / 2};
 	private boolean visibilityState = true;
+	private int currentBallRadius = GameConstants.MIN_BALL_RADIUS;
 
 	public Game(int playersCount) {
 		this.playersCount = playersCount;
@@ -106,5 +107,13 @@ public class Game {
 
 	public boolean getVisibilityState() {
 		return visibilityState;
+	}
+
+	public void toggleCurrentBallRadius() {
+		currentBallRadius = GameConstants.MIN_BALL_RADIUS + GameConstants.MAX_BALL_RADIUS - currentBallRadius;
+	}
+
+	public int getCurrentBallRadius() {
+		return currentBallRadius;
 	}
 }

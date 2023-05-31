@@ -26,10 +26,11 @@ public class GameController {
 			new Timeline(new KeyFrame(Duration.seconds(new Random().nextDouble(
 				GameConstants.MIN_TURN_REVERSAL_INTERVALS, GameConstants.MAX_TURN_REVERSAL_INTERVALS
 			)), event -> { reverseRotation(); })).play();
+			startBallResizing();
 			game.setLastStartedPhase(2);
 		}
 		if (game.getPhase() >= 3 && game.getLastStartedPhase() == 2) {
-			// startBallsInvisibilityTimer();
+			startBallsInvisibilityTimer();
 			game.setLastStartedPhase(3);
 		}
 		if (game.getPhase() >= 4 && game.getLastStartedPhase() == 3) {
@@ -50,7 +51,7 @@ public class GameController {
 	private void startBallsInvisibilityTimer() {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
 			game.setVisibilityState(!game.getVisibilityState());
-			gameScreen.updateNeedlesVisibility();
+			gameScreen.updateNeedles();
 		}));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
@@ -91,6 +92,17 @@ public class GameController {
 			game.setWindAngle(new Random().nextInt(-15, 16));
 			gameScreen.updateWindText();
 		}));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+	}
+
+	private void startBallResizing() {
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000),
+			event -> {
+				game.toggleCurrentBallRadius();
+				gameScreen.updateNeedles();
+				checkBallCollisions();
+			}));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
 	}

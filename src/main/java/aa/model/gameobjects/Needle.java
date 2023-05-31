@@ -1,5 +1,6 @@
 package aa.model.gameobjects;
 
+import aa.model.Globals;
 import aa.utils.GameConstants;
 import javafx.scene.Group;
 import javafx.scene.shape.Circle;
@@ -23,10 +24,11 @@ public class Needle {
 		this.angle = angle;
 		Circle ball = new Circle(GameConstants.getScreenWidth() / 2,
 			GameConstants.getScreenHeight() / 2 + GameConstants.NEEDLE_BAR_LENGTH,
-			GameConstants.MIN_BALL_RADIUS);
+			Globals.getCurrentGame().getCurrentBallRadius());
 		Rectangle bar = new Rectangle(GameConstants.getScreenWidth() / 2,
 			GameConstants.getScreenHeight() / 2, 2, GameConstants.NEEDLE_BAR_LENGTH);
 		group = new Group(ball, bar);
+		group.setVisible(Globals.getCurrentGame().getVisibilityState());
 		Rotate rotation = new Rotate();
 		rotation.pivotXProperty().bind(pivot.centerXProperty());
 		rotation.pivotYProperty().bind(pivot.centerYProperty());

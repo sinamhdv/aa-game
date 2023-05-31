@@ -6,7 +6,6 @@ public class Miscellaneous {
 	}
 
 	public static double getNeedleAngle(double x1, double y1, double x2, double y2) {
-		System.out.println(x1 + ", " + y1 + "       " + x2 + ", " + y2);
 		double deltaX = x1 - x2;
 		double deltaY = y1 - y2;
 		if (Math.abs(deltaY) <= 1e-2) return (deltaX > 0 ? 270 : 90);
