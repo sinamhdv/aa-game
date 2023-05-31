@@ -24,7 +24,7 @@
 		<Label text="8" styleClass="HUD-text" fx:id="player2RemainingBallsText"/>
 	</HBox>
 
-	<VBox alignment="CENTER" spacing="10" fx:id="pauseMenu" layoutX="1400" layoutY="400" visible="false">
+	<VBox alignment="CENTER" spacing="10" fx:id="pauseMenu" layoutX="1400" layoutY="400" visible="false" managed="false">
 		<Label text="Pause Menu" styleClass="menu-label"/>
 		<Button text="Resume" onMouseClicked="#resumeButtonHandler"/>
 		<Button text="Save" onMouseClicked="#saveButtonHandler"/>

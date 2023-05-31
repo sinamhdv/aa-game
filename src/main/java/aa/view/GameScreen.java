@@ -80,6 +80,9 @@ public class GameScreen extends Application {
 	public ProgressBar getFreezeBar() {
 		return freezeBar;
 	}
+	public VBox getPauseMenu() {
+		return pauseMenu;
+	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -189,6 +192,7 @@ public class GameScreen extends Application {
 
 	private void addKeyListeners() {
 		pane.setOnKeyPressed(event -> {
+			if (game.isPaused()) return;
 			KeyCode key = event.getCode();
 			if (key == settings.getControls()[0])
 				controller.shootKeyHandler(0);

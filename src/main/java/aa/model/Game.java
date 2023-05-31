@@ -18,6 +18,7 @@ public class Game {
 	private int currentBallRadius = GameConstants.MIN_BALL_RADIUS;
 	private int freezeValue = 1;
 	private int musicTrackIndex = 0;
+	private transient boolean isPaused = false;
 
 	public Game(int playersCount) {
 		this.playersCount = playersCount;
@@ -141,5 +142,13 @@ public class Game {
 
 	public void setMusicTrackIndex(int musicTrackIndex) {
 		this.musicTrackIndex = musicTrackIndex;
+	}
+
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
 	}
 }

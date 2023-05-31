@@ -139,11 +139,19 @@ public class GameController {
 	}
 
 	public void pauseKeyHandler() {
-		System.out.println("pause");
+		game.setPaused(true);
+		gameScreen.getRotationAnimation().pause();
+		gameScreen.getPauseMenu().setVisible(true);
+		gameScreen.getPauseMenu().setManaged(true);
+		gameScreen.getPane().requestFocus();
 	}
 
 	public void resumeGame() {
-		System.out.println("resume");
+		game.setPaused(false);
+		gameScreen.getRotationAnimation().play();
+		gameScreen.getPauseMenu().setVisible(false);
+		gameScreen.getPauseMenu().setManaged(false);
+		gameScreen.getPane().requestFocus();
 	}
 
 	public void saveGame() {
