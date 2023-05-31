@@ -111,6 +111,8 @@ public class GameScreen extends Application {
 
 	private void setupPauseMenu() {
 		musicComboBox.getItems().addAll("track #1", "track #2", "track #3");
+		musicComboBox.getSelectionModel().select(0);
+		soundCheckBox.setSelected(settings.hasSound());
 		soundCheckBox.selectedProperty().addListener((observable, oldState, newState) -> {
 			settings.setHasSound(newState.booleanValue());
 		});

@@ -20,6 +20,11 @@ public class GameController {
 	private Game game = Globals.getCurrentGame();
 	private GameScreen gameScreen = Globals.getCurrentGameScreen();
 
+	private Timeline invisibilityTimer;
+	private Timeline gameTimer;
+	private Timeline resizingTimer;
+	private Timeline windTimer;
+
 	public GameController() {
 		Globals.setCurrentGameController(this);
 	}
@@ -53,12 +58,12 @@ public class GameController {
 	}
 
 	private void startBallsInvisibilityTimer() {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
+		invisibilityTimer = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
 			game.setVisibilityState(!game.getVisibilityState());
 			gameScreen.updateNeedles();
 		}));
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
+		invisibilityTimer.setCycleCount(Timeline.INDEFINITE);
+		invisibilityTimer.play();
 	}
 
 	public void checkBallCollisions() {
@@ -82,37 +87,37 @@ public class GameController {
 
 	public void startGameTimer() {
 		gameScreen.updateTimerText();
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
+		gameTimer = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
 			if (game.getRemainingSeconds() == 0) {
 				loseGame();
 			}
 			game.setRemainingSeconds(game.getRemainingSeconds() - 1);
 			gameScreen.updateTimerText();
 		}));
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
+		gameTimer.setCycleCount(Timeline.INDEFINITE);
+		gameTimer.play();
 	}
 
 	private void startWind() {
-		Timeline timeline = new Timeline(new KeyFrame(
+		windTimer = new Timeline(new KeyFrame(
 			Duration.millis(Globals.getCurrentUser().getGameSettings().getWindChangingIntervals()),
 		event -> {
 			game.setWindAngle(new Random().nextInt(-15, 16));
 			gameScreen.updateWindText();
 		}));
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
+		windTimer.setCycleCount(Timeline.INDEFINITE);
+		windTimer.play();
 	}
 
 	private void startBallResizing() {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000),
+		resizingTimer = new Timeline(new KeyFrame(Duration.millis(1000),
 			event -> {
 				game.toggleCurrentBallRadius();
 				gameScreen.updateNeedles();
 				checkBallCollisions();
 			}));
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
+		resizingTimer.setCycleCount(Timeline.INDEFINITE);
+		resizingTimer.play();
 	}
 
 	public void shootKeyHandler(int playerIndex) {
@@ -141,6 +146,10 @@ public class GameController {
 	public void pauseKeyHandler() {
 		game.setPaused(true);
 		gameScreen.getRotationAnimation().pause();
+		if (invisibilityTimer != null) invisibilityTimer.pause();
+		if (windTimer != null) windTimer.pause();
+		if (resizingTimer != null) resizingTimer.pause();
+		if (gameTimer != null) gameTimer.pause();
 		gameScreen.getPauseMenu().setVisible(true);
 		gameScreen.getPauseMenu().setManaged(true);
 		gameScreen.getPane().requestFocus();
@@ -149,6 +158,10 @@ public class GameController {
 	public void resumeGame() {
 		game.setPaused(false);
 		gameScreen.getRotationAnimation().play();
+		if (invisibilityTimer != null) invisibilityTimer.play();
+		if (windTimer != null) windTimer.play();
+		if (resizingTimer != null) resizingTimer.play();
+		if (gameTimer != null) gameTimer.play();
 		gameScreen.getPauseMenu().setVisible(false);
 		gameScreen.getPauseMenu().setManaged(false);
 		gameScreen.getPane().requestFocus();
