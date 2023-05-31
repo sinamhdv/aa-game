@@ -29,7 +29,7 @@ public class GameController {
 			game.setLastStartedPhase(2);
 		}
 		if (game.getPhase() >= 3 && game.getLastStartedPhase() == 2) {
-			startBallsInvisibilityTimer();
+			// startBallsInvisibilityTimer();
 			game.setLastStartedPhase(3);
 		}
 		if (game.getPhase() >= 4 && game.getLastStartedPhase() == 3) {

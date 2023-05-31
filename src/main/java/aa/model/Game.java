@@ -9,7 +9,7 @@ public class Game {
 	private int remainingSeconds = GameConstants.GAME_TIMEOUT;
 	private int freezeBarPercent = 0;
 	private int[] remainingBallsCount;
-	private int windAngle = 0;
+	private int windAngle = 20;
 	private int score = 0;
 	private int rotationDirection = 1;
 	private transient int lastStartedPhase = 1;
