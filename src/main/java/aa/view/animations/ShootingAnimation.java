@@ -48,9 +48,10 @@ public class ShootingAnimation extends Transition {
 	}
 
 	private void checkHittingScreenBorders() {
-		if (ball.getCenterX() < GameConstants.MIN_BALL_RADIUS
-			|| ball.getCenterX() > GameConstants.getScreenWidth() - GameConstants.MIN_BALL_RADIUS ||
-			ball.getCenterY() < GameConstants.MIN_BALL_RADIUS) {
+		if (ball.getCenterX() < GameConstants.MIN_BALL_RADIUS ||
+			ball.getCenterX() > GameConstants.getScreenWidth() - GameConstants.MIN_BALL_RADIUS ||
+			ball.getCenterY() < GameConstants.MIN_BALL_RADIUS ||
+			ball.getCenterY() > GameConstants.getScreenHeight() - GameConstants.MIN_BALL_RADIUS) {
 			this.stop();
 			ball.setFill(Color.RED);
 			Globals.getCurrentGameController().loseGame();

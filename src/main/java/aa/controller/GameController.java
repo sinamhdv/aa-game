@@ -12,6 +12,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
@@ -65,8 +66,12 @@ public class GameController {
 			for (int j = i + 1; j < gameScreen.getNeedles().size(); j++) {
 				Shape intersect = Shape.intersect(gameScreen.getNeedles().get(i).getBall(),
 					gameScreen.getNeedles().get(j).getBall());
-				if (intersect.getBoundsInLocal().getWidth() > -0.5)
+				if (intersect.getBoundsInLocal().getWidth() > -0.5) {
+					gameScreen.getNeedles().get(i).getBall().setFill(Color.RED);
+					gameScreen.getNeedles().get(j).getBall().setFill(Color.RED);
 					loseGame();
+					return;
+				}
 			}
 		}
 	}
