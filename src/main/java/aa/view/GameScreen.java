@@ -74,7 +74,7 @@ public class GameScreen extends Application {
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
 		stage.setFullScreenExitHint("");
-		stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);	// TODO: disable exiting fullscreen
+		stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		stage.setFullScreen(true);
 		stage.show();
 		pane.requestFocus();
@@ -93,6 +93,7 @@ public class GameScreen extends Application {
 	}
 
 	private void setupHUD() {
+		player2RemainingBallsText.setVisible(game.getPlayersCount() == 2);
 		scoreText.setLayoutX(GameConstants.getScreenWidth() / 2 - 50);
 		scoreText.setLayoutY(GameConstants.getScreenHeight() / 2 - 50);
 		scoreText.toFront();
@@ -115,7 +116,9 @@ public class GameScreen extends Application {
 
 	public void updateHUD() {
 		player1RemainingBallsText.setText(Integer.toString(game.getRemainingBallsCount()[0]));
+		player1RemainingBallsText.setStyle(getRemainingBallsCounterStyle(0));
 		player2RemainingBallsText.setText(Integer.toString(game.getRemainingBallsCount()[1]));
+		player2RemainingBallsText.setStyle(getRemainingBallsCounterStyle(1));
 		if (!game.isFreezed()) freezeBar.setProgress(game.getFreezeBarPercent() / 100.0);
 		windText.setText("Wind: " + game.getWindAngle());
 		scoreText.setText(String.format("%02d", game.getScore()));
@@ -132,6 +135,14 @@ public class GameScreen extends Application {
 				}
 			}
 		}
+	}
+	
+	private String getRemainingBallsCounterStyle(int playerIndex) {
+		if (game.getRemainingBallsCount()[playerIndex] * 4 <= game.getInitialBallsCount()[playerIndex])
+			return "-fx-background-color: green";
+		if (game.getRemainingBallsCount()[playerIndex] * 2 <= game.getInitialBallsCount()[playerIndex])
+			return "-fx-background-color: yellow";
+		return "-fx-background-color:red";
 	}
 
 	public void updateTimerText() {
