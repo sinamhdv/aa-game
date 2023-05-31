@@ -227,6 +227,7 @@ public class GameScreen extends Application {
 		needles.add(needle);
 		rotatingObjects.getChildren().add(needle.getGroup());
 		controller.checkBallCollisions();
+		controller.checkWin();
 	}
 
 	public void updateNeedles() {

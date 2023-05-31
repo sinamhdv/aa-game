@@ -81,8 +81,16 @@ public class GameController {
 		}
 	}
 
+	public void checkWin() {
+		if (game.getRemainingBallsCount()[0] != 0 || game.getRemainingBallsCount()[1] != 0)
+			return;
+		stopTheTime();
+		gameScreen.getPane().getChildren().add(new Label("WINNNNN"));
+	}
+
 	public void loseGame() {
-		gameScreen.getPane().getChildren().add(new Label("hahahaha"));
+		stopTheTime();
+		gameScreen.getPane().getChildren().add(new Label("LOSEEE"));
 	}
 
 	public void startGameTimer() {
@@ -143,13 +151,17 @@ public class GameController {
 		game.endFreeze();
 	}
 
-	public void pauseKeyHandler() {
+	private void stopTheTime() {
 		game.setPaused(true);
 		gameScreen.getRotationAnimation().pause();
 		if (invisibilityTimer != null) invisibilityTimer.pause();
 		if (windTimer != null) windTimer.pause();
 		if (resizingTimer != null) resizingTimer.pause();
 		if (gameTimer != null) gameTimer.pause();
+	}
+
+	public void pauseKeyHandler() {
+		stopTheTime();
 		gameScreen.getPauseMenu().setVisible(true);
 		gameScreen.getPauseMenu().setManaged(true);
 		gameScreen.getPane().requestFocus();
