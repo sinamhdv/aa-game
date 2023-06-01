@@ -34,4 +34,9 @@
 		<ComboBox fx:id="musicComboBox"/>
 	</VBox>
 
+	<VBox alignment="CENTER" spacing="10" fx:id="gameOverMenu" layoutX="1400" layoutY="400" visible="false" managed="false">
+		<Label text="" styleClass="menu-label" fx:id="gameOverText"/>
+		<Button text="Go To Scoreboard" onMouseClicked="#gotoScoreboardButtonHandler"/>
+	</VBox>
+
 </Pane>

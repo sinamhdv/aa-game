@@ -11,7 +11,6 @@ import aa.view.animations.ShootingAnimation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
@@ -82,15 +81,17 @@ public class GameController {
 	}
 
 	public void checkWin() {
+		if (game.isPaused()) return;
 		if (game.getRemainingBallsCount()[0] != 0 || game.getRemainingBallsCount()[1] != 0)
 			return;
 		stopTheTime();
-		gameScreen.getPane().getChildren().add(new Label("WINNNNN"));
+		gameScreen.displayWin();
 	}
 
 	public void loseGame() {
+		if (game.isPaused()) return;
 		stopTheTime();
-		gameScreen.getPane().getChildren().add(new Label("LOSEEE"));
+		gameScreen.displayLose();
 	}
 
 	public void startGameTimer() {

@@ -53,6 +53,11 @@ public class GameScreen extends Application {
 	@FXML
 	private ComboBox<String> musicComboBox;
 
+	@FXML
+	private VBox gameOverMenu;
+	@FXML
+	private Label gameOverText;
+
 	private Game game = Globals.getCurrentGame();
 	private User user = Globals.getCurrentUser();
 	private GameSettings settings = user.getGameSettings();
@@ -252,5 +257,23 @@ public class GameScreen extends Application {
 
 	public void exitButtonHandler(MouseEvent mouseEvent) throws Exception {
 		new MainMenu().start(LoginMenu.getStage());
+	}
+
+	public void gotoScoreboardButtonHandler(MouseEvent mouseEvent) throws Exception {
+		new Scoreboard().start(LoginMenu.getStage());
+	}
+
+	public void displayWin() {
+		pane.setStyle("-fx-background-color: lightgreen;");
+		gameOverText.setText("You Won");
+		gameOverMenu.setVisible(true);
+		gameOverMenu.setManaged(true);
+	}
+
+	public void displayLose() {
+		pane.setStyle("-fx-background-color: pink;");
+		gameOverText.setText("You Lost");
+		gameOverMenu.setVisible(true);
+		gameOverMenu.setManaged(true);
 	}
 }
