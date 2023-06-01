@@ -309,11 +309,13 @@ public class GameScreen extends Application {
 	}
 
 	public void restartButtonHandler(MouseEvent mouseEvent) throws Exception {
+		musicPlayer.stop();
 		MainMenuController.startGame(game.getPlayersCount());
 		new GameScreen().start(LoginMenu.getStage());
 	}
 
 	public void exitButtonHandler(MouseEvent mouseEvent) throws Exception {
+		musicPlayer.stop();
 		new MainMenu().start(LoginMenu.getStage());
 	}
 
