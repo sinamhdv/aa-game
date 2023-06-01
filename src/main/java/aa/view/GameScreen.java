@@ -55,6 +55,12 @@ public class GameScreen extends Application {
 	private CheckBox soundCheckBox;
 	@FXML
 	private ComboBox<String> musicComboBox;
+	@FXML
+	private Label player1ShootKeyText;
+	@FXML
+	private Label player2ShootKeyText;
+	@FXML
+	private Label freezeKeyText;
 
 	@FXML
 	private VBox gameOverMenu;
@@ -119,6 +125,9 @@ public class GameScreen extends Application {
 	}
 
 	private void setupPauseMenu() {
+		player1ShootKeyText.setText("Player 1 Shoot Key: " + settings.getControls()[0].getName());
+		player2ShootKeyText.setText("Player 2 Shoot Key: " + settings.getControls()[1].getName());
+		freezeKeyText.setText("Freeze Key: " + settings.getControls()[2].getName());
 		musicComboBox.getItems().addAll("track #1", "track #2", "track #3");
 		musicComboBox.getSelectionModel().select(0);
 		soundCheckBox.setSelected(settings.hasSound());
@@ -131,6 +140,10 @@ public class GameScreen extends Application {
 		if (user.isGuest()) {
 			saveButton.setVisible(false);
 			saveButton.setManaged(false);
+		}
+		if (game.getPlayersCount() == 1) {
+			player2ShootKeyText.setVisible(false);
+			player2ShootKeyText.setManaged(false);
 		}
 	}
 

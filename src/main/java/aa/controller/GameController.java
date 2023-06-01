@@ -116,6 +116,7 @@ public class GameController {
 		gameTimer = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
 			if (game.getRemainingSeconds() == 0) {
 				loseGame();
+				return;
 			}
 			game.setRemainingSeconds(game.getRemainingSeconds() - 1);
 			gameScreen.updateTimerText();

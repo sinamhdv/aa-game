@@ -32,6 +32,9 @@
 		<Button text="Exit" onMouseClicked="#exitButtonHandler"/>
 		<CheckBox text="Game Sound" fx:id="soundCheckBox"/>
 		<ComboBox fx:id="musicComboBox"/>
+		<Label text="Player 1 Shoot Key: " fx:id="player1ShootKeyText"/>
+		<Label text="Player 2 Shoot Key: " fx:id="player2ShootKeyText"/>
+		<Label text="Freeze Key: " fx:id="freezeKeyText"/>
 	</VBox>
 
 	<VBox alignment="CENTER" spacing="10" fx:id="gameOverMenu" layoutX="1400" layoutY="400" visible="false" managed="false">
