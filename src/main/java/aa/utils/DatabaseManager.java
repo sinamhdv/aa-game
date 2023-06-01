@@ -43,36 +43,6 @@ public class DatabaseManager {
 		}
 	}
 
-	// private static void serializeObject(String filename, Object object) {
-	// 	try {
-	// 		OutputStream file = new FileOutputStream(filename);
-	// 		ObjectOutputStream serializer = new ObjectOutputStream(file);
-	// 		serializer.writeObject(object);
-	// 		serializer.close();
-	// 		file.close();
-	// 	} catch (IOException ex) {
-	// 		ex.printStackTrace();
-	// 		System.out.println("FATAL: Exception while serializing");
-	// 		System.exit(1);
-	// 	}
-	// }
-
-	// private static Object deserializeObject(String filename) {
-	// 	try {
-	// 		InputStream file = new FileInputStream(filename);
-	// 		ObjectInputStream deserializer = new ObjectInputStream(file);
-	// 		Object object = deserializer.readObject();
-	// 		deserializer.close();
-	// 		file.close();
-	// 		return object;
-	// 	} catch (Exception ex) {
-	// 		ex.printStackTrace();
-	// 		System.out.println("FATAL: Exception while deserializing");
-	// 		System.exit(1);
-	// 	}
-	// 	return null;
-	// }
-
 	// Users
 	public static void loadUsers() {
 		String json = readAllFromFile(USER_DATABASE_FILENAME);
