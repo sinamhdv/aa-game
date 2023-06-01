@@ -83,4 +83,8 @@ public class GameSettings {
 		else if (difficulty == 1) return 5000;
 		return 3000;
 	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
 }

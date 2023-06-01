@@ -23,8 +23,12 @@ public class GameConstants {
 
 	public static final Color PLAYER2_COLOR = Color.DIMGRAY;
 
-	// public static final double[] ARRANGEMENT1 = {0, 72, 144, 216, 288};
-	public static final double[] ARRANGEMENT1 = {0};
+	public static final double[][] ARRANGEMENTS = {
+		{0, 72, 144, 216, 288},
+		{0, 30, 60, 90, 120},
+		{0, 30, 60, 195, 225}
+	};
+	// public static final double[] ARRANGEMENT1 = {0};
 
 	public static int getScreenHeight() {
 		return (int)(Screen.getPrimary().getBounds().getHeight() + 0.5);

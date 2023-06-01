@@ -27,7 +27,10 @@ public class MainMenu extends Application {
 	}
 
 	public void continueButtonClicked(MouseEvent mouseEvent) throws Exception {
-		System.out.println("continue");
+		if (MainMenuController.loadGame())
+			new GameScreen().start(LoginMenu.getStage());
+		else
+			errorText.setText("Error while trying to load game");
 	}
 
 	public void profileButtonClicked(MouseEvent mouseEvent) throws Exception {

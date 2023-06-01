@@ -19,6 +19,8 @@ public class Game {
 	private int freezeValue = 1;
 	private int musicTrackIndex = 0;
 	private transient boolean isPaused = false;
+	private double[] savedArrangement;
+	private double savedPivotAngle;
 
 	public Game(int playersCount) {
 		this.playersCount = playersCount;
@@ -150,5 +152,21 @@ public class Game {
 
 	public void setPaused(boolean isPaused) {
 		this.isPaused = isPaused;
+	}
+
+	public double[] getSavedArrangement() {
+		return savedArrangement;
+	}
+
+	public void setSavedArrangement(double[] savedArrangement) {
+		this.savedArrangement = savedArrangement;
+	}
+
+	public double getSavedPivotAngle() {
+		return savedPivotAngle;
+	}
+
+	public void setSavedPivotAngle(double savedPivotAngle) {
+		this.savedPivotAngle = savedPivotAngle;
 	}
 }

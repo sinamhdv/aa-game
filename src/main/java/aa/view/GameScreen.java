@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -48,6 +49,8 @@ public class GameScreen extends Application {
 	// Pause Menu
 	@FXML
 	private VBox pauseMenu;
+	@FXML
+	private Button saveButton;
 	@FXML
 	private CheckBox soundCheckBox;
 	@FXML
@@ -112,6 +115,7 @@ public class GameScreen extends Application {
 		setupHUD();
 		updateHUD();
 		controller.startGameTimer();
+		if (game.getPhase() > 1) controller.handlePhases();
 	}
 
 	private void setupPauseMenu() {
@@ -124,6 +128,10 @@ public class GameScreen extends Application {
 		musicComboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
 			game.setMusicTrackIndex(newValue.intValue());
 		});
+		if (user.isGuest()) {
+			saveButton.setVisible(false);
+			saveButton.setManaged(false);
+		}
 	}
 
 	private void setupHUD() {
@@ -221,9 +229,16 @@ public class GameScreen extends Application {
 	}
 
 	private void loadInitialArrangement() {
-		double[] arrangementAngles = GameConstants.ARRANGEMENT1;
-		for (double angle : arrangementAngles)
-			addNeedle(angle, 0);
+		if (game.getSavedArrangement() == null) {
+			double[] arrangementAngles = GameConstants.ARRANGEMENTS[settings.getArrangementIndex()];
+			for (double angle : arrangementAngles)
+				addNeedle(angle, 0);
+		}
+		else {
+			for (double angle : game.getSavedArrangement())
+				addNeedle(angle, 0);
+			rotationAnimation.getRotation().setAngle(game.getSavedPivotAngle());
+		}
 	}
 
 	public void addNeedle(double angle, int playerIndex) {

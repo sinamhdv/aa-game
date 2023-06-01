@@ -5,6 +5,8 @@ import java.util.Random;
 import aa.model.Game;
 import aa.model.Globals;
 import aa.model.User;
+import aa.model.gameobjects.Needle;
+import aa.utils.DatabaseManager;
 import aa.utils.GameConstants;
 import aa.view.GameScreen;
 import aa.view.animations.FreezeBarAnimation;
@@ -30,7 +32,7 @@ public class GameController {
 	}
 
 	public void handlePhases() {
-		if (game.getPhase() >= 2 && game.getLastStartedPhase() == 1) {
+		if (game.getPhase() >= 2 && game.getLastStartedPhase() <= 1) {
 			// random turn reversal
 			new Timeline(new KeyFrame(Duration.seconds(new Random().nextDouble(
 				GameConstants.MIN_TURN_REVERSAL_INTERVALS, GameConstants.MAX_TURN_REVERSAL_INTERVALS
@@ -196,7 +198,14 @@ public class GameController {
 	}
 
 	public void saveGame() {
-		System.out.println("save");
+		if (Globals.getCurrentUser().isGuest()) return;
+		double[] arrangement = new double[gameScreen.getNeedles().size()];
+		int i = 0;
+		for (Needle needle : gameScreen.getNeedles())
+			arrangement[i++] = needle.getAngle();
+		game.setSavedArrangement(arrangement);
+		game.setSavedPivotAngle(gameScreen.getRotationAnimation().getRotation().getAngle());
+		DatabaseManager.saveGame();
 	}
 
 	public void moveStationaryBalls(int playerIndex, int direction) {
