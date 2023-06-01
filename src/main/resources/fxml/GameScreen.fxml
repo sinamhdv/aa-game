@@ -30,7 +30,7 @@
 		<Button text="Save" onMouseClicked="#saveButtonHandler" fx:id="saveButton"/>
 		<Button text="Restart" onMouseClicked="#restartButtonHandler"/>
 		<Button text="Exit" onMouseClicked="#exitButtonHandler"/>
-		<CheckBox text="Game Sound" fx:id="soundCheckBox"/>
+		<CheckBox text="Music" fx:id="soundCheckBox"/>
 		<ComboBox fx:id="musicComboBox"/>
 		<Label text="Player 1 Shoot Key: " fx:id="player1ShootKeyText"/>
 		<Label text="Player 2 Shoot Key: " fx:id="player2ShootKeyText"/>

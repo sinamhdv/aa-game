@@ -28,7 +28,7 @@
 			<Label text="Initial Balls Arrangement:"/>
 			<ComboBox fx:id="arrangementComboBox"/>
 
-			<CheckBox text="Game Sound" fx:id="soundCheckBox"/>
+			<CheckBox text="Music" fx:id="soundCheckBox"/>
 
 			<CheckBox text="Grayscale Mode" fx:id="grayscaleCheckBox"/>
 

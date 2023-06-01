@@ -28,7 +28,12 @@ public class GameConstants {
 		{0, 30, 60, 90, 120},
 		{0, 30, 60, 195, 225}
 	};
-	// public static final double[] ARRANGEMENT1 = {0};
+
+	public static final String[] MUSIC_TRACKS = {
+		GameConstants.class.getResource("/audio/track0.mp3").toExternalForm(),
+		GameConstants.class.getResource("/audio/track1.mp3").toExternalForm(),
+		GameConstants.class.getResource("/audio/track2.mp3").toExternalForm()
+	};
 
 	public static int getScreenHeight() {
 		return (int)(Screen.getPrimary().getBounds().getHeight() + 0.5);

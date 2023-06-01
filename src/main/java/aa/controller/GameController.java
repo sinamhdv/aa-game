@@ -161,6 +161,7 @@ public class GameController {
 
 	public void freezeKeyHandler() {
 		if (game.getFreezeBarPercent() < 100) return;
+		gameScreen.getBeepPlayer().play();
 		game.startFreeze();
 		game.setFreezeBarPercent(0);
 		new FreezeBarAnimation().play();

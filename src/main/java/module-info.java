@@ -1,6 +1,7 @@
 module aa {
     requires transitive javafx.graphics;
     requires transitive javafx.controls;
+    requires transitive javafx.media;
     requires javafx.fxml;
     requires com.google.gson;
     requires org.apache.commons.io;

@@ -26,6 +26,8 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -79,6 +81,11 @@ public class GameScreen extends Application {
 	private Circle[][] stationaryBalls = new Circle[2][3];
 	private Label[][] remainingBallsLabels = new Label[2][3];
 
+	private MediaPlayer beepPlayer = new MediaPlayer(
+		new Media(GameScreen.class.getResource("/audio/beep.wav").toExternalForm()));
+	private MediaPlayer musicPlayer = new MediaPlayer(
+		new Media(GameConstants.MUSIC_TRACKS[game.getMusicTrackIndex()]));
+
 	public Pane getPane() {
 		return pane;
 	}
@@ -97,6 +104,12 @@ public class GameScreen extends Application {
 	public VBox getPauseMenu() {
 		return pauseMenu;
 	}
+	public MediaPlayer getBeepPlayer() {
+		return beepPlayer;
+	}
+	public MediaPlayer getMusicPlayer() {
+		return musicPlayer;
+	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -114,14 +127,26 @@ public class GameScreen extends Application {
 	private void initialize() {
 		Globals.setCurrentGameScreen(this);
 		controller = new GameController();
+		pane.setStyle("-fx-background-color: #f2e1b8;");
 		addKeyListeners();
 		setupCentralDisk();
 		loadInitialArrangement();
+		setupAudioPlayers();
+		updateAudioPlayers();
 		setupPauseMenu();
 		setupHUD();
 		updateHUD();
 		controller.startGameTimer();
 		if (game.getPhase() > 1) controller.handlePhases();
+	}
+
+	private void setupAudioPlayers() {
+		musicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+		musicPlayer.play();
+	}
+
+	private void updateAudioPlayers() {
+		musicPlayer.setMute(!settings.hasSound());
 	}
 
 	private void setupPauseMenu() {
@@ -133,9 +158,14 @@ public class GameScreen extends Application {
 		soundCheckBox.setSelected(settings.hasSound());
 		soundCheckBox.selectedProperty().addListener((observable, oldState, newState) -> {
 			settings.setHasSound(newState.booleanValue());
+			updateAudioPlayers();
 		});
 		musicComboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
 			game.setMusicTrackIndex(newValue.intValue());
+			musicPlayer.stop();
+			musicPlayer = new MediaPlayer(new Media(GameConstants.MUSIC_TRACKS[game.getMusicTrackIndex()]));
+			musicPlayer.play();
+			updateAudioPlayers();
 		});
 		if (user.isGuest()) {
 			saveButton.setVisible(false);
@@ -296,6 +326,7 @@ public class GameScreen extends Application {
 		gameOverText.setText("You Won");
 		gameOverMenu.setVisible(true);
 		gameOverMenu.setManaged(true);
+		musicPlayer.stop();
 	}
 
 	public void displayLose() {
@@ -303,5 +334,6 @@ public class GameScreen extends Application {
 		gameOverText.setText("You Lost");
 		gameOverMenu.setVisible(true);
 		gameOverMenu.setManaged(true);
+		musicPlayer.stop();
 	}
 }
