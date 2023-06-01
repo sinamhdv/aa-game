@@ -4,6 +4,7 @@ import java.util.Random;
 
 import aa.model.Game;
 import aa.model.Globals;
+import aa.model.User;
 import aa.utils.GameConstants;
 import aa.view.GameScreen;
 import aa.view.animations.FreezeBarAnimation;
@@ -85,13 +86,27 @@ public class GameController {
 		if (game.getRemainingBallsCount()[0] != 0 || game.getRemainingBallsCount()[1] != 0)
 			return;
 		stopTheTime();
+		updateScore();
 		gameScreen.displayWin();
 	}
 
 	public void loseGame() {
 		if (game.isPaused()) return;
 		stopTheTime();
+		updateScore();
 		gameScreen.displayLose();
+	}
+
+	private void updateScore() {
+		User user = Globals.getCurrentUser();
+		for (int i = 0; i <= user.getGameSettings().getDifficulty(); i++) {
+			if (game.getScore() > user.getHighscore()[i] ||
+				(game.getScore() == user.getHighscore()[i] &&
+				GameConstants.GAME_TIMEOUT - game.getRemainingSeconds() < user.getPlayingTime()[i])) {
+				user.setHighscore(i, game.getScore());
+				user.setPlayingTime(i, GameConstants.GAME_TIMEOUT - game.getRemainingSeconds());
+			}
+		}
 	}
 
 	public void startGameTimer() {
