@@ -9,6 +9,8 @@ A graphical game written in Java similar to the popular game AA.
 - Scoreboard
 - Slow-motion ability
 - Increased complexity based on progress (rotation reversal, invisible balls, wind speed, changing ball radius, etc.)
+- Game save & load
+- Sound tracks
 
 ## Screenshots
 
