@@ -30,9 +30,9 @@ public class GameConstants {
 	};
 
 	public static final String[] MUSIC_TRACKS = {
-		GameConstants.class.getResource("/audio/track0.mp3").toExternalForm(),
-		GameConstants.class.getResource("/audio/track1.mp3").toExternalForm(),
-		GameConstants.class.getResource("/audio/track2.mp3").toExternalForm()
+		GameConstants.class.getResource("/audio/track0.wav").toExternalForm(),
+		GameConstants.class.getResource("/audio/track1.wav").toExternalForm(),
+		GameConstants.class.getResource("/audio/track2.wav").toExternalForm()
 	};
 
 	public static int getScreenHeight() {
