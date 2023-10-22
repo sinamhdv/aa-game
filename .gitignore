@@ -2,3 +2,4 @@
 target/
 TODO.md
 src/main/resources/database/users.json
+src/main/resources/database/games/*.save
